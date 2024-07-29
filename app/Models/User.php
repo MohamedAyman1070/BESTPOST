@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -20,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'background_color',
+        'google_id',
     ];
 
     /**
@@ -30,6 +33,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+    ];
+
+    protected $with= [
+        'photos' ,
+        // 'posts' ,
+    //     // 'followers' ,
+    //     'reacts',
     ];
 
     /**
@@ -43,5 +53,22 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function posts(){
+        return $this->hasMany(Post::class);
+    }
+    // public function followers(){
+    //     return $this->belongsToMany(Follower::class);
+    // }
+    public function reacts(){
+        return $this->hasMany(React::class);
+    }
+
+    public function photos(){
+        return $this->morphOne('App\Models\Photo','imageable')->latestOfMany();
+    }
+
+    public function isAdmin(){
+        
     }
 }

@@ -23,12 +23,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $color =array();
+        $color[] = rand(50 , 255).',';
+        $color[] = rand(50 , 255).',';
+        $color[] = rand(50 , 255);
+        
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'background_color' => implode($color)
         ];
     }
 
