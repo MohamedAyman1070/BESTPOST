@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Post;
 
 use App\Models\Draft;
 use App\Models\Photo;
@@ -13,7 +13,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
-class LivePostCreate extends Component
+class Create extends Component
 {
     use WithFileUploads;
 
@@ -328,6 +328,6 @@ class LivePostCreate extends Component
 
     public function render()
     {
-        return view('livewire.live-post-create');
+        return view('livewire.post.create');
     }
 }

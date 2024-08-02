@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Auth;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class SignupForm extends Component
+class Signup extends Component
 {
     public $name ; 
     public $email ;
@@ -38,6 +38,6 @@ class SignupForm extends Component
 
     public function render()
     {
-        return view('livewire.signup-form');
+        return view('livewire.auth.signup');
     }
 }

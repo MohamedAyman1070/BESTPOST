@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Auth;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
-class LoginForm extends Component
+class Login extends Component
 {
     public $email ;
     public $password;
@@ -27,6 +27,6 @@ class LoginForm extends Component
     }
     public function render()
     {
-        return view('livewire.login-form');
+        return view('livewire.auth.login');
     }
 }

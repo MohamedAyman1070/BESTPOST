@@ -2,5 +2,5 @@
 
 
 @section('wire')
-    <livewire:login-form/>
+    <livewire:auth.login/>
 @endsection

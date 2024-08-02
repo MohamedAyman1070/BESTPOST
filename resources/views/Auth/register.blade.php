@@ -1,5 +1,5 @@
 @extends('layouts.auth')
 
 @section('wire')
-    <livewire:signup-form/>
+    <livewire:auth.signup/>
 @endsection
