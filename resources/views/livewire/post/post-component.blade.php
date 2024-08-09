@@ -5,13 +5,25 @@
 
             <div class="flex justify-center items-center gap-2">
                 @if ($post)
-                    <div class=" w-fit  rounded-full" style="background-color: rgb({{ $post->user->background_color }});">
-                        <img class="w-12 h-12 rounded-full "
-                            src="{{ $post->user->photos->path ?? asset('/images/profile.png') }}" alt="profile">
-                    </div>
+
+                    @if ($post['user']['photos'])
+                        <div class=" w-fit  rounded-full">
+                            <img class="w-12 h-12 rounded-full "
+                                src="{{ '/' . $post['user']['photos']['path'] ?? asset('/images/profile.png') }}"
+                                alt="profile">
+                        </div>
+                    @else
+                        <div class=" w-fit  rounded-full"
+                            style="background-color: rgb({{ $post['user']['background_color'] }});">
+                            <img class="w-12 h-12 rounded-full "
+                                src="{{ $post['user']['photos']['path'] ?? asset('/images/profile.png') }}"
+                                alt="profile">
+                        </div>
+                    @endif
+
                     <div class="text-white">
-                        <h1 class=" text-xl  ">{{ $post->user->name }}</h1>
-                        <smal class=" text-sm">{{ $post->user->email }}</small>
+                        <h1 class=" text-xl  ">{{ $post['user']['name'] }}</h1>
+                        <smal class=" text-sm">{{ $post['user']['email'] }}</small>
                             {{-- todo:Followers --}}
                     </div>
                 @endif
@@ -22,32 +34,37 @@
                 <div class="">
 
                     {{-- edit --}}
-                    @can('update-delete-post', $post)
-                        <div x-data="{ open: false }" class="relative ">
-                            <Button @click="open = ! open" class="rounded-full w-6  h-6 bg-custom-black2"><i
-                                    class="fa-solid fa-ellipsis-vertical"></i></Button>
+                    @if ($post)
+                        @can('update-delete-post', $post['user_id'])
+                            <div x-data="{ open: false }" class="relative ">
+                                <Button @click="open = ! open" class="rounded-full w-6  h-6 bg-custom-black2"><i
+                                        class="fa-solid fa-ellipsis-vertical"></i></Button>
 
-                            <div x-show="open" @click.outside="open = false">
-                                <div
-                                    class="flex flex-col bg-custom-black2 p-2 w-40 justify-center items-start absolute right-0  text-white rounded">
-                                    <div class="p-2 hover:text-blue-600 hover:bg-custom-black1 transition w-full rounded ">
-                                        <a href="/post/edit/{{ $post->id }}">Edit</a>
-                                    </div>
-                                    <div class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
-                                        <button wire:click="delete({{ $post->id }})">Delete</button>
-                                    </div>
-                                    <div class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
-                                        <a href="">To Draft</a>
+                                <div x-show="open" @click.outside="open = false">
+                                    <div
+                                        class="flex flex-col bg-custom-black2 p-2 w-40 justify-center items-start absolute right-0  text-white rounded">
+                                        <div
+                                            class="p-2 hover:text-blue-600 hover:bg-custom-black1 transition w-full rounded ">
+                                            <a href="/post/edit/{{ $post['id'] }}">Edit</a>
+                                        </div>
+                                        <div
+                                            class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
+                                            <button wire:click="delete({{ $post['id'] }})">Delete</button>
+                                        </div>
+                                        <div
+                                            class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
+                                            <a href="">To Draft</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endcan
+                        @endcan
 
-                    @cannot('update-delete-post', $post)
-                        <i class="fa-regular fa-plus" style="color: #2563eb;"></i>
-                        <button class="text-xl  text-blue-600" wire:click="follow">Follow</button>
-                    @endcannot
+                        @cannot('update-delete-post', $post['user_id'])
+                            <i class="fa-regular fa-plus" style="color: #2563eb;"></i>
+                            <button class="text-xl  text-blue-600" wire:click="follow">Follow</button>
+                        @endcannot
+                    @endif
 
 
                 </div>
@@ -59,7 +76,7 @@
             {{-- {{ $post->body }} --}}
 
             @if ($post)
-                @foreach ($post->body as $element)
+                @foreach ($post['body'] as $element)
                     @include('components.post-logic.post-structure')
                 @endforeach
             @endif

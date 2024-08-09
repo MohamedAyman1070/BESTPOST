@@ -16,11 +16,13 @@ class Edit extends Component
     public $name;
     public $photo;
     public $path;
+    public $user_photo;
 
     public function mount()
     {
         $this->name = auth()->user()->name;
-        $this->path = auth()->user()->path ?? null;
+        $this->user_photo = auth()->user()->photos ?? null;
+        $this->path = null;
     }
 
     protected $rules = [
@@ -35,16 +37,17 @@ class Edit extends Component
                 return;
             }
             $this->validate();
-            
+        
             $user = User::find(Auth::user()->id);
             $user->name = $this->name;
             $user->save();
-            if ($this->path) {
-                Photo::create([
+            if ($this->path && $this->path) {
+                $photo = Photo::create([
                     'imageable_id' => Auth::user()->id,
                     'imageable_type' => 'App\Models\User',
                     'path' => $this->path
                 ]);
+                $this->user_photo = $photo;
             }
             $this->dispatch('render-topbar');
         } catch (Exception $e) {
@@ -63,14 +66,22 @@ class Edit extends Component
         }
     }
 
-    public function removePhoto(){
-        $photo = Photo::find(auth()->user()->photos)->first();
-        $photo->delete();
-       dd( $photo );
+
+    public function removePhoto()
+    {
+        if ($this->user_photo) {
+            $this->path = null;
+            $this->user_photo->delete();
+            $this->user_photo = null;
+            $this->dispatch('render-topbar');
+        } else {
+            $this->dispatch('show-toast' , err: "Couldn't find photo");
+        }
     }
 
     public function render()
     {
-        return view('livewire.profile.edit');
+       
+        return view('livewire.profile.edit' );
     }
 }

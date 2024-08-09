@@ -2,8 +2,8 @@
 
 
 @section('content')
-    <div class="bg-[#111315] h-auto ">
-        <div class="w-full h-fit sm:h-full flex relative ">
+    <div class="bg-[#111315] h-full    ">
+        <div class="w-full h-fit sm:h-full  relative">
 
             <div x-data="{ show: false }" class="  z-50  h-full absolute   ">
                 <template x-if="!show">
@@ -17,7 +17,7 @@
             </div>
 
             {{-- <livewire:profile.post > --}}
-                <div class="w-full sm:w-4/5   h-fit m-auto ">
+                <div class="w-full sm:w-4/5   h-fit m-auto  ">
                     <div class="w-full sm:w-4/5   h-full m-auto border-2 border-black">
                         <div class="flex w-full justify-center sm:justify-start  p-2 gap-2 border-b-2 border-custom-black1 text-white">
                             <div class="p-2 hover:text-blue-500 transition rounded  bg-custom-black2">
@@ -31,9 +31,8 @@
                             </div>
                         </div>
                         
-                        @foreach ($posts as $post)
-                            <livewire:post.PostComponent :$post>
-                        @endforeach
+                        <livewire:base.container :$posts>
+                       
                     </div>
                 </div>
 

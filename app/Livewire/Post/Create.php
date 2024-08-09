@@ -121,7 +121,7 @@ class Create extends Component
             $this->elements[] = $this->convertedData;
             $this->box[] = $this->elements;
         } catch (Exception $e) {
-            $this->dispatch('show-toast', err: 'Error: Image is too large');
+            $this->dispatch('show-toast', err: $e->getMessage());
         }
     }
 

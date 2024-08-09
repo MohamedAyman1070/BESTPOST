@@ -33,7 +33,6 @@ class Edit extends Component
 
     public function mount()
     {
-
         $this->clone =  explode("\n", $this->post->body);
         $this->box = array();
         $this->box[] = $this->clone;
@@ -53,7 +52,7 @@ class Edit extends Component
     public function edit()
     {
         $post = Post::find($this->post->id);
-        $this->authorize('update-delete-post',$post);
+        $this->authorize('update-delete-post',$post['user_id']);
         $post->body = implode("\n", $this->clone);
         foreach ($this->clone as $element) {
             if (str_contains($element, '/img/')) {

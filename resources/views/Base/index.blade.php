@@ -7,9 +7,8 @@
         <div class=" h-full bg-[#111315] ">
             <div class="m-auto h-full bg-transparent border-2 border-black   w-full sm:w-3/5">
 
-                @foreach ($posts as $post)
-                    <livewire:post.PostComponent :$post>
-                @endforeach
+               
+                <livewire:base.container>
 
             </div>
         </div>

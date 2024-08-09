@@ -1,18 +1,25 @@
 <div class="  w-full  sm:col-span-4 h-full text-white ">
-    <livewire:err-toast />
 
 
     <div class="m-auto w-4/5 h-full   border-b-2 border-black flex flex-col items-center justify-start">
+        <div class="text-blue-500 text-xl font-bold text-center animate-pulse" wire:loading>
+            Loading...
+        </div>
         @if ($path)
-        
-        <span class="h-fit rounded-full w-fit mt-14">
-            <img class="w-60 h-60 rounded-full" src="{{ asset($path) }}" alt="profile">
-        </span>
-        @else
-            <span class="h-fit rounded-full w-fit mt-14"
-                style=" background-color: rgb({{ auth()->user()->background_color }});">
-                <img class="w-60 h-60 rounded-full" src="{{ auth()->user()->photos->path ?? asset('images/profile.png') }}" alt="profile">
+            <span class="h-fit rounded-full w-fit mt-14">
+                <img class="w-60 h-60 rounded-full" src="{{ asset($path) }}" alt="profile">
             </span>
+        @else
+            @if ($user_photo)
+                <span class="h-fit rounded-full w-fit mt-14">
+                    <img class="w-60 h-60 rounded-full" src="{{ '/' . $user_photo->path }}" alt="profile">
+                </span>
+            @else
+                <span class="h-fit rounded-full w-fit mt-14"
+                    style=" background-color: rgb({{ auth()->user()->background_color }});">
+                    <img class="w-60 h-60 rounded-full" src="{{ asset('images/profile.png') }}" alt="profile">
+                </span>
+            @endif
         @endif
 
         @if ($photo)
@@ -23,9 +30,9 @@
                 <i class="fa-solid fa-upload"></i>
                 <input id="upload" hidden type="file" hidden accept="png,jpg" wire:model="photo">
             </label>
-            {{-- @dd(auth()->user()->photo) --}}
-            @if(auth()->user()->photo)
-                <button wire:click="removePhoto">remove photo</button>
+            {{-- @dd(auth()->user()->photos) --}}
+            @if ($user_photo)
+                    <button wire:click.prevent="removePhoto">remove photo</button>
             @endif
         @endif
 

@@ -12,7 +12,7 @@
                 <button wire:click="popular">Popular</button>
             </div>
         </div>
-        @dump($posts)
+        @dd($posts)
         @foreach ($posts as $post)
             <livewire:post.PostComponent :$post>
         @endforeach

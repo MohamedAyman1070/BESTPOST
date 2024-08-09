@@ -7,6 +7,7 @@ use App\Models\Post as ModelsPost;
 use Carbon\Carbon;
 use DateTime;
 use Livewire\Component;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PostComponent extends Component
 {
@@ -16,10 +17,11 @@ class PostComponent extends Component
 
     public function mount(){
 
-        $this->post->body = explode("\n" , $this->post->body);
-
+        
+        $this->post['body']= explode("\n" , $this->post['body']);
+        
         $this->since = Carbon::now() ;
-        $post_dt  = new Carbon($this->post->created_at);
+        $post_dt  = new Carbon($this->post['created_at']);
         $this->since = $post_dt->diffForHumans($this->since);
         $this->since = str_replace('before' , 'ago' , $this->since);
     }
@@ -28,12 +30,16 @@ class PostComponent extends Component
         
     }
 
-    public function delete($postID){
+    public function delete($postID){// Issue # DOM not not rendered immediately after deletion
         $post = ModelsPost::find($postID);
-        $this->authorize('update-delete-post', $post);
+        if($post):
+        $this->authorize('update-delete-post', $post['user_id']);
         $post->delete();
         $this->post = null;
-    }
+        else:
+            return throw new NotFoundHttpException();
+        endif;
+     }
 
 
     public function render()
