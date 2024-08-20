@@ -15,7 +15,7 @@
         @endif
 
         <b class="text-3xl">{{ $username }}</b>
-        <small class="text-xl">{{ $email }} <a href="/profile-update"><i
+        <small class="text-xl">{{ $email }} <a href="/profile/update"><i
                     class="fa-regular fa-pen-to-square"></i></a></small>
 
         <div class=" w-full h-full  p-2 flex justify-center items-center">
