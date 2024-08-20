@@ -10,6 +10,7 @@ use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\Features\SupportFileUploads\WithFileUploads;
 use phpDocumentor\Reflection\Types\This;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class Edit extends Component
 {
@@ -30,6 +31,7 @@ class Edit extends Component
     public $textStart;
     public $textEnd;
     public $input;
+    public $img_public_id;
 
     public function mount()
     {
@@ -47,23 +49,38 @@ class Edit extends Component
         $this->textStart = false;
         $this->textEnd = false;
         $this->row = '';
+        $this->img_public_id = array();
     }
 
     public function edit()
     {
         $post = Post::find($this->post->id);
-        $this->authorize('update-delete-post',$post['user_id']);
+        $this->authorize('update-delete-post', $post['user_id']);
         $post->body = implode("\n", $this->clone);
+        $saved_img_from_cloud = [];
         foreach ($this->clone as $element) {
             if (str_contains($element, '/img/')) {
+
+                $img_id = stristr($element, '/img_id/');
+                $img_id = str_replace('/img_id/', '', $img_id);
+                $saved_img_from_cloud[] = $img_id;
+                $img_url = stristr($element, '/img_id/', true);
+                $img_url = str_replace('/img/', '', $img_url);
+
+
                 Photo::create([
                     'imageable_id' => $post->id,
                     'imageable_type' => 'App\Models\Post',
-                    'path' => str_replace('/img/', '', $element),
+                    'url' => $img_url,
+                    'img_public_id' =>  $img_id,
                 ]);
             }
         }
         $post->save();
+        $deleted_imgs = array_diff($this->img_public_id,$saved_img_from_cloud);
+        foreach($deleted_imgs as $img_id){
+            Cloudinary::destroy($img_id);
+        }
         redirect('/profile/posts');
     }
 
@@ -71,10 +88,16 @@ class Edit extends Component
     {
         try {
             $this->validate(['photo' => 'image|max:1024']);
-            $path = $this->photo->store(path: 'public/uploaded-img');
-            $path = str_replace('public', 'storage', $path);
+            // $path = $this->photo->store(path: 'public/uploaded-img');
+            $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
+            $img_url = $cloudImg->getSecurePath();
+            $this->img_public_id[] = $cloudImg->getPublicId();
+            $img_id = end($this->img_public_id);
+
+            // $path = str_replace('public', 'storage', $path);
             $this->photo = null;
-            $this->row .= "/img/$path";
+            $this->row .= "/img/$img_url/img_id/$img_id";
+            // $this->row .= "/img/$path";
             switch ($pos) {
                 case 1:
                     $key = array_search($element, $this->clone);
@@ -107,7 +130,7 @@ class Edit extends Component
 
     public function saveRow($element, $pos)
     {
-        
+
         try {
             $this->validate(['input' => 'required']);
             $this->row .= $this->input;
@@ -158,7 +181,7 @@ class Edit extends Component
     #[On('blue')]
     public function toggleBlue()
     {
-        
+
         $this->boolManagement('blue-toggle');
 
         $this->logic('blue-true', function () {
@@ -171,7 +194,7 @@ class Edit extends Component
     #[On('green')]
     public function toggleGreen()
     {
-        
+
         $this->boolManagement('green-toggle');
 
         $this->logic('green-true', function () {
@@ -206,7 +229,7 @@ class Edit extends Component
     #[On('text-mid')]
     public function text_mid()
     {
-        
+
         $this->boolManagement('mid-toggle');
         $this->textMid === true ? $this->row .= '/mid/' : $this->row = str_replace('/mid/', '', $this->row);
         $this->logic('mid-true', function () {
@@ -217,7 +240,7 @@ class Edit extends Component
     #[On('text-start')]
     public function text_start()
     {
-        
+
         $this->boolManagement('start-toggle');
         $this->textStart === true ? $this->row .= '/start/' : $this->row = str_replace('/start/', '', $this->row);
         $this->logic('start-true', function () {
@@ -228,7 +251,7 @@ class Edit extends Component
     #[On('text-end')]
     public function text_end()
     {
-        
+
         $this->boolManagement('end-toggle');
         $this->textEnd === true ? $this->row .= '/end/' : $this->row = str_replace('/end/', '', $this->row);
         $this->logic('end-true', function () {

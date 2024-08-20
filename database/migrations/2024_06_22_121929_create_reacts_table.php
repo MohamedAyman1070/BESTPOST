@@ -15,8 +15,11 @@ return new class extends Migration
     {
         Schema::create('reacts', function (Blueprint $table) {
             $table->id();
-            $table->string('react');
-            $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate() ;
+            $table->integer('reactable_id')->unsigned();
+            $table->string('reactable_type'); 
+            $table->enum('react' , ['love','lough' , 'sad' , 'anger' , 'wow']);
+           
+            // $table->foreignIdFor(Post::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate() ;
             $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete()->cascadeOnUpdate() ;
             $table->timestamps();
         });

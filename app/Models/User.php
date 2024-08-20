@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute ;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -35,11 +37,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
-    protected $with= [
-        'photos' ,
+    protected $with = [
+        'photos',
         // 'posts' ,
-    //     // 'followers' ,
-    //     'reacts',
+        //     // 'followers' ,
+        //     'reacts',
     ];
 
     /**
@@ -54,21 +56,30 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class);
     }
     // public function followers(){
     //     return $this->belongsToMany(Follower::class);
     // }
-    public function reacts(){
+    public function reacts()
+    {
         return $this->hasMany(React::class);
     }
 
-    public function photos(){
-        return $this->morphOne('App\Models\Photo','imageable')->latestOfMany();
+    public function name():Attribute
+    {
+        return Attribute::make(
+            get: fn(string $name) => ucfirst($name)
+        );
+    }
+    public function photos()
+    {
+        return $this->morphOne('App\Models\Photo', 'imageable')->latestOfMany();
     }
 
-    public function isAdmin(){
-        
+    public function isAdmin()
+    {
     }
 }

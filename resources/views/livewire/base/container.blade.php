@@ -1,5 +1,8 @@
 <div>
-
+    
+    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading >
+        Loading...
+    </div>
 
     @for ($i = 0; $i < $page_n; $i++)
         @foreach ($postArrayChunks[$i] as $post)

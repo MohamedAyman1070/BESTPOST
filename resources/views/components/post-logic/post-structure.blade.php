@@ -1,6 +1,7 @@
 @if (str_contains($element, '/img/'))
-<img class="w-full h-80 object-cover  rounded" src="{{ asset(str_replace('/img/', '', $element)) }}"
+<img class="w-full h-80 object-cover  rounded mt-2" src="{{str_replace('/img/' , '' , stristr($element , '/img_id/' , true))}}"
     alt="photo">
+    
 @elseif (str_contains($element, '/mid/'))
 @include('components.post-logic.text-align-logic', [
     'align_code' => '/mid/',

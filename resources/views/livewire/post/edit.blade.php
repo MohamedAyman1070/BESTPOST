@@ -1,5 +1,11 @@
 <div class="w-3/5 p-2  h-full m-auto">
+    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading >
+        Loading...
+    </div>
     <div class="bg-green rounded bg-custom-black1 p-2">
+
+
+      
 
         <div class="flex flex-col gap-2">
             <div class="flex justify-between">

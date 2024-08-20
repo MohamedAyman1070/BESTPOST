@@ -24,11 +24,14 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function reacts(){
-        return $this->hasMany(React::class);
-    }
+    // public function reacts(){
+    //     return $this->hasMany(React::class);
+    // }
 
     public  function photos(){
         return $this->morphMany('App\Models\Photo' , 'imageable');
+    }
+    public function reacts(){
+       return $this->morphMany('App\Models\React' , 'reactable') ;
     }
 }

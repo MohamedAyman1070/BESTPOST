@@ -39,12 +39,12 @@
                 @if ($photo)
                     <div class="flex gap-2 m-2 items-center">
                         <button class="bg-blue-500 font-bold rounded p-2" wire:click="saveImg"><i
-                                class="fa-solid fa-upload"></i>save</button>
+                                class="fa-solid fa-upload"></i></button>
                     </div>
                 @else
                     <label for="upload" wire:loading.attr="disabled"
                         class="block rounded p-2  text-white cursor-pointer">
-                        <i class="fa-regular fa-image">upload</i>
+                        <i class="fa-regular fa-image"></i>
                         <input type="file" id="upload" wire:model="photo" hidden accept="png,jpg">
                     </label>
                 @endif

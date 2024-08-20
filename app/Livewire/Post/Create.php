@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+
 
 class Create extends Component
 {
@@ -30,6 +32,8 @@ class Create extends Component
     public $textStart;
     public $textEnd;
     public  $pos;
+    public  $img_public_id ;
+
     
     
 
@@ -48,7 +52,7 @@ class Create extends Component
         $this->textMid =false;
         $this->textStart=false;
         $this->textEnd=false;
-        $this->pos = -1;
+        $this->pos = count($this->box)-1;
     }
     public function insert()
     {
@@ -61,7 +65,12 @@ class Create extends Component
                 $this->elements[] = $this->convertedData;
                 $this->boolManagement('turn-off-all');
             });
-            $this->box[] = $this->elements;
+
+            if($this->pos === count($this->box)-1){
+                $this->box[] = $this->elements;
+            }else  if ($this->pos < count($this->box)-1) {
+                array_splice($this->box , $this->pos+1 , count($this->box) , array($this->elements));
+            }
             $this->pos = count($this->box)-1;
             $this->input = '';
             $this->render();
@@ -76,20 +85,36 @@ class Create extends Component
     {
         if(count($this->elements)>0){
             // $this->validate(['elements' => 'required']);
-            
             $post =Post::create([
                 'body' => implode("\n",$this->elements),
                 'user_id' => Auth::user()->id,
             ]);
-            //todo: loops the elements for searching for photos's path
+
+            
+            $saved_img_from_cloud = array();
+
             foreach($this->elements as $element){
+
                 if(str_contains($element,'/img/')){
+
+                    $img_id = stristr($element , '/img_id/');
+                    $img_id = str_replace('/img_id/' , '' , $img_id) ; 
+                    $saved_img_from_cloud[] = $img_id ; 
+                    $img_url = stristr($element , '/img_id/' , true );
+                    $img_url = str_replace('/img/' , '' , $img_url);
+                    
+
                     Photo::create([
                         'imageable_id' => $post->id,
                         'imageable_type' => 'App\Models\Post',
-                        'path' => str_replace('/img/', '', $element),
+                        'url' => $img_url,
+                        'img_public_id' =>  $img_id,
                     ]);
                 }
+            }
+            $deleted_imgs = array_diff($this->img_public_id,$saved_img_from_cloud);
+            foreach($deleted_imgs as $img_id){
+                Cloudinary::destroy($img_id);
             }
             redirect("/");
             
@@ -114,12 +139,23 @@ class Create extends Component
     {
         try {
             $this->validate(['photo' => 'image|max:1024']);
-            $path = $this->photo->store(path: 'public/uploaded-img');
-            $path = str_replace('public' , 'storage' ,$path);
+            
+            $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
+            $img_url = $cloudImg->getSecurePath();
+            $this->img_public_id[] = $cloudImg->getPublicId();
             $this->photo = '';
-            $this->convertedData .= "/img/$path";
+            $img_id = end($this->img_public_id) ;
+            $this->convertedData .= "/img/$img_url/img_id/$img_id";
             $this->elements[] = $this->convertedData;
-            $this->box[] = $this->elements;
+            // $this->pos = count($this->box)-1;
+            $this->convertedData = '';
+            // $this->box[] = $this->elements;
+            if($this->pos === count($this->box)-1){
+                $this->box[] = $this->elements;
+            }else  if ($this->pos < count($this->box)-1) {
+                array_splice($this->box , $this->pos+1 , count($this->box) , array($this->elements));
+            }
+            $this->pos = count($this->box)-1;
         } catch (Exception $e) {
             $this->dispatch('show-toast', err: $e->getMessage());
         }

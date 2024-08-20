@@ -3,6 +3,7 @@
 namespace App\Livewire\Base;
 
 use App\Models\Post;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Container extends Component
@@ -14,6 +15,7 @@ class Container extends Component
     public $postArrayChunks;
     public $posts;
 
+    #[On('delete-post')]
     public function mount()
     {
         if ($this->posts) :
@@ -34,6 +36,7 @@ class Container extends Component
         return $this->page_n < $this->maxPages;
     }
 
+    
     public function render()
     {
         return view('livewire.base.container');

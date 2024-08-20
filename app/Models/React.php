@@ -11,14 +11,16 @@ class React extends Model
 
     public $fillable = [
         'user_id',
-        'post_id',
+       'reactable_type',
+       'reactable_id',
         'react'
     ];
 
     public function user (){
         return $this->belongsto(User::class);
     }
-    public function post(){
-        return $this->belongsto(Post::class);
+
+    public function reactable(){
+       return $this->morphTo();
     }
 }
