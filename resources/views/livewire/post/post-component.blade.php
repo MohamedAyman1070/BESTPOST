@@ -12,14 +12,14 @@
                     @if ($post['user']['photos'])
                         <div class=" w-fit  rounded-full">
                             <img class="w-12 h-12 rounded-full "
-                                src="{{ '/' . $post['user']['photos']['path'] ?? asset('/images/profile.png') }}"
+                                src="{{  $post['user']['photos']['url'] ?? asset('/images/profile.png') }}"
                                 alt="profile">
                         </div>
                     @else
                         <div class=" w-fit  rounded-full"
                             style="background-color: rgb({{ $post['user']['background_color'] }});">
                             <img class="w-12 h-12 rounded-full "
-                                src="{{ $post['user']['photos']['path'] ?? asset('/images/profile.png') }}"
+                                src="{{ $post['user']['photos']['url'] ?? asset('/images/profile.png') }}"
                                 alt="profile">
                         </div>
                     @endif
@@ -75,7 +75,8 @@
 
         </div>
 
-        <div class="text-white p-2 max-h-[30rem] overflow-auto">
+        {{-- max-h-[30rem] --}}
+        <div class="text-white p-2  overflow-auto"> 
             {{-- {{ $post->body }} --}}
 
             @if ($post)

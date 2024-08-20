@@ -53,6 +53,7 @@ class Create extends Component
         $this->textStart=false;
         $this->textEnd=false;
         $this->pos = count($this->box)-1;
+   
     }
     public function insert()
     {

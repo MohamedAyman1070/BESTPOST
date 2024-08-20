@@ -4,6 +4,7 @@ namespace App\Livewire\Profile;
 
 use App\Models\Photo;
 use App\Models\User;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -17,12 +18,15 @@ class Edit extends Component
     public $photo;
     public $path;
     public $user_photo;
+    public $img_public_id;
+    public $img_url;
 
     public function mount()
     {
         $this->name = auth()->user()->name;
         $this->user_photo = auth()->user()->photos ?? null;
         $this->path = null;
+        $this->img_public_id = array();
     }
 
     protected $rules = [
@@ -32,21 +36,25 @@ class Edit extends Component
     {
         try {
 
-            if ($this->name == auth()->user()->name && !$this->path) {
+            if ($this->name == auth()->user()->name && !$this->img_url) {
                 $this->dispatch('show-toast', err: 'nothing changed');
                 return;
             }
             $this->validate();
-        
+
             $user = User::find(Auth::user()->id);
             $user->name = $this->name;
             $user->save();
-            if ($this->path && $this->path) {
+            if ($this->img_url) {
                 $photo = Photo::create([
                     'imageable_id' => Auth::user()->id,
                     'imageable_type' => 'App\Models\User',
-                    'path' => $this->path
+                    'url' => $this->img_url,
+                    'img_public_id' =>  array_pop($this->img_public_id),
                 ]);
+                foreach ($this->img_public_id as $id) {
+                    Cloudinary::destroy($id);
+                }
                 $this->user_photo = $photo;
             }
             $this->dispatch('render-topbar');
@@ -58,8 +66,16 @@ class Edit extends Component
     {
         try {
             $this->validate(['photo' =>  'image|max:1024']);
-            $this->path = $this->photo->store(path: '/public/uploaded-img/avatar');
-            $this->path = str_replace('public', 'storage', $this->path);
+            // $this->path = $this->photo->store(path: '/public/uploaded-img/avatar');
+            if ($this->user_photo) {
+                Cloudinary::destroy($this->user_photo->img_public_id);
+            }
+            $cloudImg = $this->photo->storeOnCloudinary("BestPost/Avatar/");
+            $this->img_url = $cloudImg->getSecurePath();
+            $img_id = $cloudImg->getPublicId();
+            $this->img_public_id[] = $img_id;
+            // $this->path = str_replace('public', 'storage', $this->path);
+            unlink($this->photo->getRealPath());
             $this->photo = '';
         } catch (Exception $e) {
             $this->dispatch('show-toast', err: $e->getMessage());
@@ -72,16 +88,17 @@ class Edit extends Component
         if ($this->user_photo) {
             $this->path = null;
             $this->user_photo->delete();
+            Cloudinary::destroy($this->user_photo->img_public_id);
             $this->user_photo = null;
             $this->dispatch('render-topbar');
         } else {
-            $this->dispatch('show-toast' , err: "Couldn't find photo");
+            $this->dispatch('show-toast', err: "Couldn't find photo");
         }
     }
 
     public function render()
     {
-       
-        return view('livewire.profile.edit' );
+
+        return view('livewire.profile.edit');
     }
 }

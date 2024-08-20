@@ -77,6 +77,7 @@ class User extends Authenticatable
     public function photos()
     {
         return $this->morphOne('App\Models\Photo', 'imageable')->latestOfMany();
+        // return $this->morphMany('App\Models\Photo','imageable');
     }
 
     public function isAdmin()

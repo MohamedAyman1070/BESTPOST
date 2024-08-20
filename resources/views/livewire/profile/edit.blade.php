@@ -5,14 +5,14 @@
         <div class="text-blue-500 text-xl font-bold text-center animate-pulse" wire:loading>
             Loading...
         </div>
-        @if ($path)
+        @if ($img_url)
             <span class="h-fit rounded-full w-fit mt-14">
-                <img class="w-60 h-60 rounded-full" src="{{ asset($path) }}" alt="profile">
+                <img class="w-60 h-60 rounded-full" src="{{ $img_url }}" alt="profile">
             </span>
         @else
             @if ($user_photo)
                 <span class="h-fit rounded-full w-fit mt-14">
-                    <img class="w-60 h-60 rounded-full" src="{{ '/' . $user_photo->path }}" alt="profile">
+                    <img class="w-60 h-60 rounded-full" src="{{ $user_photo->url }}" alt="profile">
                 </span>
             @else
                 <span class="h-fit rounded-full w-fit mt-14"
