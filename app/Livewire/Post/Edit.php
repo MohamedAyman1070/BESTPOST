@@ -95,6 +95,7 @@ class Edit extends Component
             $img_id = end($this->img_public_id);
 
             // $path = str_replace('public', 'storage', $path);
+            unlink($this->photo->getRealPath);
             $this->photo = null;
             $this->row .= "/img/$img_url/img_id/$img_id";
             // $this->row .= "/img/$path";
