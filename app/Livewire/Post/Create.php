@@ -143,6 +143,7 @@ class Create extends Component
             $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
             $img_url = $cloudImg->getSecurePath();
             $this->img_public_id[] = $cloudImg->getPublicId();
+            unlink($this->photo->getRealPath());
             $this->photo = '';
             $img_id = end($this->img_public_id) ;
             $this->convertedData .= "/img/$img_url/img_id/$img_id";
