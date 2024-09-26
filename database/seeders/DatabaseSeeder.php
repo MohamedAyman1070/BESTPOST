@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+
+use App\Models\Comment;
 use App\Models\Post;
 use App\Models\React;
 use App\Models\User;
@@ -30,7 +32,11 @@ class DatabaseSeeder extends Seeder
 
         $posts = Post::all()->pluck('id');
 
+        Comment::factory(100)->create();
+
+
         React::factory(500)->create();
+
 
         // React::factory()->create([
         //     'reactable_id' => $posts[array_rand($posts->toArray())],

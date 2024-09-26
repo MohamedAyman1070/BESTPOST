@@ -2,48 +2,38 @@
 
 namespace App\Livewire\Post;
 
-use App\Livewire\Profile\Post;
-use App\Models\Photo;
-use App\Models\Post as ModelsPost;
+use App\Models\Comment as ModelsComment;
 use App\Models\React;
 use Carbon\Carbon;
-use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
-use DateTime;
 use Livewire\Component;
 use LogicException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class PostComponent extends Component
+class Comment extends Component
 {
-
-    public $post;
+    public $comment ; 
+    public $owner ;
+    public $reacts ;
     public $since;
+
     public $react_counter;
-    public $comment_body ;
-    public $comments;
 
-
-    public function mount()
-    {
-
-        $this->post['body'] = explode("\n", $this->post['body']);
-
-        $this->comments = $this->post['comments'];
+    public function mount(){
+        $this->owner = $this->comment['user'] ;
+        $this->reacts = $this->comment['reacts'] ;
+        $now = Carbon::now();
+        $created_at = new Carbon($this->comment['created_at']);
+        $this->since = $created_at->diffForHumans($now);
+        $this->since = str_replace('before' , 'ago' , $this->since);
 
         $this->reaction_handler();
-
-
-        $this->since = Carbon::now();
-        $post_dt  = new Carbon($this->post['created_at']);
-        $this->since = $post_dt->diffForHumans($this->since);
-        $this->since = str_replace('before', 'ago', $this->since);
     }
+
     private function reaction_handler($mode = 'normal')
     {
         if($mode === 'normal'){
-            $react_array = $this->post['reacts'];
+            $react_array = $this->comment['reacts'];
         }elseif($mode === 'DB'){
-            $react_array = ModelsPost::find($this->post['id'])->reacts->toArray();
+            $react_array = ModelsComment::find($this->comment['id'])->reacts->toArray();
         }
         $this->react_counter = ['love' => 0, 'lough' => 0, 'sad' => 0,  'anger' => 0, 'wow' => 0, 'all' => 0];
         foreach ($react_array as $arr) {
@@ -69,18 +59,19 @@ class PostComponent extends Component
                     $this->react_counter['all']++;
                     break;
                 default:
-                    return new LogicException;
+                    return new LogicException();
                     break;
             }
         }
     }
 
 
+    
     public function react($reaction)
     {
 
         $data = [
-            'reactable_id' => $this->post['id'],
+            'reactable_id' => $this->comment['id'],
             'reactable_type' => 'App\Models\Post',
             'user_id' => auth()->user()->id,
         ];
@@ -103,9 +94,9 @@ class PostComponent extends Component
             default:
                 return new LogicException();
         }
-        
 
-        if ($reaction_obj = React::where('user_id', auth()->user()->id)->where('reactable_id', $this->post['id'])->first()) {
+        
+        if ($reaction_obj = React::where('user_id', auth()->user()->id)->where('reactable_id', $this->comment['id'])->first()) {
 
             if($reaction_obj->react === $data['react']){
                 $reaction_obj->delete();
@@ -122,30 +113,8 @@ class PostComponent extends Component
         // $this->react_counter[$data['react']]++;
         $this->reaction_handler('DB');
     }
-
-    public function follow() {}
-
-    public function delete()
-    { // Issue # DOM  not rendered immediately after deletion
-
-        $this->authorize('update-delete-post', $this->post['user_id']);
-        ModelsPost::all()->where('id', $this->post['id'])->first()->delete();
-        $photos_array = $this->post['photos'];
-        foreach($photos_array as $photo){
-            Photo::where('img_public_id' , $photo['img_public_id'])->first()->delete();
-            Cloudinary::destroy($photo['img_public_id']);
-        }
-        $this->dispatch('delete-post');
-    }
-    
-
-
-    public function comment(){
-        dump($this->comment_body);
-    }
-
     public function render()
     {
-        return view('livewire.post.post-component');
+        return view('livewire.post.comment');
     }
 }

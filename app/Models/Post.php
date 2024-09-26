@@ -18,6 +18,7 @@ class Post extends Model
         'user',
         'reacts',
         'photos',
+        'comments',
     ];
     
     public function user(){
@@ -33,5 +34,8 @@ class Post extends Model
     }
     public function reacts(){
        return $this->morphMany('App\Models\React' , 'reactable') ;
+    }
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }

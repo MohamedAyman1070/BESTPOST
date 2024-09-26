@@ -80,6 +80,10 @@ class User extends Authenticatable
         // return $this->morphMany('App\Models\Photo','imageable');
     }
 
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
     public function isAdmin()
     {
     }
