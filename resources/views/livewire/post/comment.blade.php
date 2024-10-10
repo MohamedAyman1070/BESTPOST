@@ -26,6 +26,7 @@
 
 
     <div class="flex gap-2 ml-2">
+
         <div x-data="{ open: false }" class="relative">
             <button @click="open = !open">
                 <i class="fa-solid fa-heart" style="color: red"></i>
@@ -51,9 +52,9 @@
             </div>
         </div>
 
-        <div x-data="{showForm : false}" class="text-white ">
+        <div x-data="{ showForm: false }" class="text-white ">
             <button @click="showForm= !showForm">Reply</button>
-            <div x-show="showForm" @click.outside="showForm=false" >
+            <div x-show="showForm" @click.outside="showForm=false">
                 @include('components.comment-form')
             </div>
         </div>

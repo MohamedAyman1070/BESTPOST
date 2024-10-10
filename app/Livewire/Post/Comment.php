@@ -10,29 +10,30 @@ use LogicException;
 
 class Comment extends Component
 {
-    public $comment ; 
-    public $owner ;
-    public $reacts ;
+    public $comment;
+    public $owner;
+    public $reacts;
     public $since;
 
     public $react_counter;
 
-    public function mount(){
-        $this->owner = $this->comment['user'] ;
-        $this->reacts = $this->comment['reacts'] ;
+    public function mount()
+    {
+        $this->owner = $this->comment['user'];
+        $this->reacts = $this->comment['reacts'];
         $now = Carbon::now();
         $created_at = new Carbon($this->comment['created_at']);
         $this->since = $created_at->diffForHumans($now);
-        $this->since = str_replace('before' , 'ago' , $this->since);
+        $this->since = str_replace('before', 'ago', $this->since);
 
         $this->reaction_handler();
     }
 
     private function reaction_handler($mode = 'normal')
     {
-        if($mode === 'normal'){
+        if ($mode === 'normal') {
             $react_array = $this->comment['reacts'];
-        }elseif($mode === 'DB'){
+        } elseif ($mode === 'DB') {
             $react_array = ModelsComment::find($this->comment['id'])->reacts->toArray();
         }
         $this->react_counter = ['love' => 0, 'lough' => 0, 'sad' => 0,  'anger' => 0, 'wow' => 0, 'all' => 0];
@@ -66,13 +67,13 @@ class Comment extends Component
     }
 
 
-    
+
     public function react($reaction)
     {
 
         $data = [
             'reactable_id' => $this->comment['id'],
-            'reactable_type' => 'App\Models\Post',
+            'reactable_type' => 'App\Models\Comment',
             'user_id' => auth()->user()->id,
         ];
         switch ($reaction) {
@@ -95,15 +96,14 @@ class Comment extends Component
                 return new LogicException();
         }
 
-        
+
         if ($reaction_obj = React::where('user_id', auth()->user()->id)->where('reactable_id', $this->comment['id'])->first()) {
 
-            if($reaction_obj->react === $data['react']){
+            if ($reaction_obj->react === $data['react']) {
                 $reaction_obj->delete();
-            }
-            else{
+            } else {
                 $reaction_obj->react = $data['react'];
-                $reaction_obj->save();    
+                $reaction_obj->save();
             }
         } else {
             React::create($data);
