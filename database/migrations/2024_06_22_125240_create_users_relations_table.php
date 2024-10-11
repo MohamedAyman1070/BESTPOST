@@ -14,11 +14,11 @@ return new class extends Migration
     {
         Schema::create('followers', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('follower');
+            // $table->bigInteger('follower');
             // $table->bigInteger('user');
-            $table->foreign('follower')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('follower')->references('id')->on('users')->onDelete('cascade');
             // $table->foreign('user')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            // $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
 
