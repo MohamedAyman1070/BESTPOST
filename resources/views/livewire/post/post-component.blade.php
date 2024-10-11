@@ -119,8 +119,8 @@
             <div class="p-2  ">
                 {{-- comments --}}
 
-                <button @click="comment_show=!comment_show"><i class="fa-solid fa-comment"
-                        style="color: #2563eb"></i></button>
+                <button @click="comment_show=!comment_show"><i class="fa-solid fa-comment" style="color: #2563eb"></i>
+                    <span class="text-white">{{ $comments_counter }}</span></button>
 
             </div>
 
@@ -128,13 +128,13 @@
         {{-- Comments Conatiner --}}
         <div x-show="comment_show" class="">
 
-         
+
             @include('components.comment-form')
 
             {{-- comment --}}
             <div>
                 @foreach ($comments as $comment)
-                    <livewire:post.comment :$comment>
+                    <livewire:post.comment :$comment :key="$comment['id']">
                 @endforeach
             </div>
 
