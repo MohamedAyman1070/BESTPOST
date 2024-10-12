@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use LogicException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -147,6 +148,7 @@ class PostComponent extends Component
 
     public function comment()
     {
+        $this->validate(['comment_body' => 'required']);
         Comment::create([
             'user_id' => Auth::id(),
             'body' => $this->comment_body,
@@ -155,6 +157,14 @@ class PostComponent extends Component
         $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
         $this->comments_counter = count($this->comments);
     }
+
+    #[On('delete-comment')]
+    public function renderComments()
+    {
+        $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
+        $this->comments_counter = count($this->comments);
+    }
+
 
     public function render()
     {

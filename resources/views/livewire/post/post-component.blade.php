@@ -41,7 +41,7 @@
                         @can('update-delete-post', $post['user_id'])
                             <div x-data="{ open: false }" class="relative ">
                                 <Button @click="open = ! open" class="rounded-full w-6  h-6 bg-custom-black2"><i
-                                        class="fa-solid fa-ellipsis-vertical"></i></Button>
+                                        class="fa-solid fa-ellipsis-vertical text-gray-400"></i></Button>
 
                                 <div x-show="open" @click.outside="open = false">
                                     <div

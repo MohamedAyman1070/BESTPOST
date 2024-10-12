@@ -5,6 +5,7 @@ namespace App\Livewire\Post;
 use App\Models\Comment as ModelsComment;
 use App\Models\React;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use LogicException;
 
@@ -66,7 +67,14 @@ class Comment extends Component
         }
     }
 
+    public function delete()
+    {
+        $this->authorize('update-delete-comment', [Auth::id(), $this->comment['user_id']]);
+        ModelsComment::find($this->comment['id'])->delete();
+        $this->dispatch('delete-comment');
+    }
 
+    public function edit() {}
 
     public function react($reaction)
     {

@@ -17,8 +17,31 @@
         </div>
 
 
-        <div class="text-gray-400   text-sm ">
-            {{ $this->since }}
+        <div class="flex flex-col gap-2 items-end">
+            <span class="text-gray-400 text-sm"> {{ $this->since }}</span>
+            @can('update-delete-comment', $comment['user_id'])
+                <div x-data="{ open: false }" class="relative ">
+                    <Button @click="open = ! open" class="rounded-full w-6  h-6 bg-custom-black2"><i
+                            class="fa-solid fa-ellipsis-vertical text-gray-400"></i></Button>
+
+                    <div x-show="open" @click.outside="open = false">
+                        <div
+                            class="flex flex-col bg-custom-black2 p-2 w-40 justify-center items-start absolute right-0  text-white rounded">
+                            {{-- <div class="p-2 hover:text-blue-600 hover:bg-custom-black1 transition w-full rounded ">
+                                Edit
+                            </div> --}}
+                            <div class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
+                                <button wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                    wire:click="delete()">Delete</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            @endcan
+
+
+
         </div>
     </div>
 

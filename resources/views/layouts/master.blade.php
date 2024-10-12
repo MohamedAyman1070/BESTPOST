@@ -12,8 +12,8 @@
     <title>BestPost</title>
 </head>
 
-<body class="bg-custom-black2 flex">
-    <div class=" h-fit  sm:h-screen flex flex-col">
+<body class="bg-custom-black2 m-0 h-screen">
+    <div class=" h-screen grid grid-cols-1 w-full gap-2">
         @include('components.topbar')
         <livewire:err-toast />
         @yield('content')
