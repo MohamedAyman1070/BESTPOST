@@ -28,11 +28,13 @@
         "APP_ROUTES_CACHE": "/tmp/routes.php",
         "APP_SERVICES_CACHE": "/tmp/services.php",
         "VIEW_COMPILED_PATH": "/tmp",
+
         "CLOUDINARY_URL": "cloudinary://128566277219373:TTHo7JNyNBjNpSXH_iWhyBiEtPY@drm3bzgpi",
         "CLOUDINARY_CLOUD_NAME": "drm3bzgp",
         "CLOUDINARY_API_KEY": "128566277219373",
         "CLOUDINARY_API_SECRET": "TTHo7JNyNBjNpSXH_iWhyBiEtPY",
         "CLOUDINARY_SECURE_URL": "true",
+
         "CACHE_DRIVER": "array",
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie",
