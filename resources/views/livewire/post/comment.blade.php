@@ -5,7 +5,8 @@
         <div class="flex gap-2">
             <div class=" w-fit  rounded-full" style="background-color: rgb({{ $owner['background_color'] }});">
                 <img class="w-12 h-12 object-cover rounded-full "
-                    src="{{ $owner['photos']['url'] ?? asset('/images/profile.png') }}" alt="profile">
+                    src="{{ $owner['photos']['url'] ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
+                    alt="profile">
             </div>
             <div class="text-white">
                 <h1 class="   ">{{ $owner['name'] }}</h1>

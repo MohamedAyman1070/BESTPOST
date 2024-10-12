@@ -5,12 +5,14 @@
         @if (auth()->user()->photos)
             <span class="h-fit rounded-full w-fit mt-14">
                 <img class="w-60 h-60 rounded-full"
-                    src="{{ auth()->user()->photos->url ?? asset('images/profile.png') }}" alt="profile">
+                    src="{{ auth()->user()->photos->url ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
+                    alt="profile">
             </span>
         @else
             <span class="h-fit rounded-full w-fit mt-14" style=" background-color: rgb({{ $background_color }});">
                 <img class="w-60 h-60 rounded-full"
-                    src="{{ auth()->user()->photos->url ?? asset('images/profile.png') }}" alt="profile">
+                    src="{{ auth()->user()->photos->url ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
+                    alt="profile">
             </span>
         @endif
 

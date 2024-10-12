@@ -12,13 +12,14 @@
                     @if ($post['user']['photos'])
                         <div class=" w-fit  rounded-full">
                             <img class="w-12 h-12 rounded-full "
-                                src="{{ $post['user']['photos']['url'] ?? asset('/images/profile.png') }}" alt="profile">
+                                src="{{ $post['user']['photos']['url'] ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
+                                alt="profile">
                         </div>
                     @else
                         <div class=" w-fit  rounded-full"
                             style="background-color: rgb({{ $post['user']['background_color'] }});">
                             <img class="w-12 h-12 rounded-full "
-                                src="{{ $post['user']['photos']['url'] ?? asset('/images/profile.png') }}"
+                                src="{{ $post['user']['photos']['url'] ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
                                 alt="profile">
                         </div>
                     @endif

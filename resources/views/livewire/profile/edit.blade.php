@@ -17,7 +17,9 @@
             @else
                 <span class="h-fit rounded-full w-fit mt-14"
                     style=" background-color: rgb({{ auth()->user()->background_color }});">
-                    <img class="w-60 h-60 rounded-full" src="{{ asset('images/profile.png') }}" alt="profile">
+                    <img class="w-60 h-60 rounded-full"
+                        src="{{ 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
+                        alt="profile">
                 </span>
             @endif
         @endif
@@ -32,7 +34,7 @@
             </label>
             {{-- @dd(auth()->user()->photos) --}}
             @if ($user_photo)
-                    <button wire:click.prevent="removePhoto">remove photo</button>
+                <button wire:click.prevent="removePhoto">remove photo</button>
             @endif
         @endif
 
