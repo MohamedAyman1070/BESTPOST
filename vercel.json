@@ -42,6 +42,9 @@
         "DB_PORT": "20674",
         "DB_DATABASE": "defaultdb",
         "DB_USERNAME": "avnadmin",
-        "DB_PASSWORD": "AVNS_ajGtR47GIBB01hhF4-t"
+        "DB_PASSWORD": "AVNS_ajGtR47GIBB01hhF4-t",
+
+        "GOOGLE_CLIENT_ID": "29266138795-i8d3um09pmk1rr98hddcr2dpi6p1ai3c.apps.googleusercontent.com",
+        "GOOGLE_CLIENT_SECRET": "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"
     }
 }
