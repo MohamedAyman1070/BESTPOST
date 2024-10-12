@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 Route::get('/login', function () {
-    return view('auth.login');
+    return view('Auth.login');
 });
 
 Route::get('/register', function () {
-    return view('auth.register');
+    return view('Auth.register');
 });
 
 // Route::get('/' , function(){
@@ -32,11 +32,11 @@ Route::get('/post-create', function () {
 });
 
 Route::get('/profile', function () {
-    return view('profile-page.profile');
+    return view('Profile-page.profile');
 });
 
 Route::get('/profile/update', function () {
-    return view('profile-page.edit');
+    return view('Profile-page.edit');
 });
 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
@@ -47,11 +47,11 @@ Route::get('/auth/google/call-back', [GoogleAuthController::class, 'callbackGoog
 // Route::view('profile/posts' , 'profile-page.posts' );
 
 Route::get('/profile/posts', function () {
-    return view('profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->latest()->get()]);
+    return view('Profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->latest()->get()]);
 });
 
 Route::get('/profile/posts-oldest', function () {
-    return view('profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->get()]);
+    return view('Profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->get()]);
 });
 
 Route::get('/post/edit/{id}', function ($id) {
