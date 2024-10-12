@@ -29,9 +29,9 @@
         @auth
             <div class="flex gap-2 items-center sm:flex-row flex-col w-full sm:w-fit">
 
-    <livewire:topbar.avatar/>
-                  
-         
+                <livewire:topbar.avatar />
+
+
 
 
 
