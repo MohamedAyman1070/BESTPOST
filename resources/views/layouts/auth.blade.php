@@ -14,11 +14,13 @@
 
     <div class="h-screen grid grid-cols-1 sm:grid-cols-2">
         <div class=" bg-cover bg-center h-screen flex justify-center gap-80   flex-col items-center"
-            style="background-image: url('{{ asset('images/graph.png') }}')">
+            style="background-image: url('{{ 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728698153/graph_vcnzme.webp' }}')">
             <div class="">
                 <span class="text-white text-5xl flex items-center gap-2">
                     <span class=" border-r-4 border-white">
-                        <img class="w-36 h-36" src="{{ asset('images/logo-Cwhite.png') }}" alt="logo.png">
+                        <img class="w-36 h-36"
+                            src="{{ 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697453/logo-Cwhite_mt3sjn.png' }}"
+                            alt="logo.png">
                     </span>
                     <h1 class="h-fit ">Welcome To BestPost</h1>
                 </span>
