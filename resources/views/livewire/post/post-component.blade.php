@@ -2,7 +2,7 @@
     <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading>
         Loading...
     </div>
-    <div x-data="{ comment_show: false }" class="flex flex-col border-2 bg-custom-black1  border-black rounded  ">
+    <div x-data="{ comment_show: false }" class="flex flex-col  bg-custom-black1   rounded  ">
 
         <div class="w-full border-b-2 border-custom-black2 p-2 grid grid-cols-4   ">
 
@@ -25,15 +25,15 @@
                     @endif
 
                     <div class="text-white">
-                        <h1 class=" text-xl  ">{{ $post['user']['name'] }}</h1>
-                        <smal class=" text-sm">{{ $post['user']['email'] }}</small>
+                        <h1 class=" text-xl text-blue-500 "><b>{{ $post['user']['name'] }}</b></h1>
+                        <smal class=" text-sm text-gray-500">{{ $post['user']['email'] }}</small>
                             {{-- todo:Followers --}}
                     </div>
                 @endif
             </div>
 
             <div class=" text-white text-sm flex flex-col  items-end  gap-1      ">
-                <span>{{ $since }}</span>
+                <span class="text-gray-400">{{ $since }}</span>
                 <div class="">
 
                     {{-- edit --}}
@@ -94,7 +94,7 @@
                 <div x-data="{ open: false }" class="relative">
                     <button @click="open = !open">
                         <i class="fa-solid fa-heart" style="color: red"></i>
-                        <span class="text-white text-sm">{{ $react_counter['all'] }}</span>
+                        <span class="text-gray-500 text-sm">{{ $react_counter['all'] }}</span>
                     </button>
                     <div x-show="open" @click.outside="open = false"
                         class="rounded bg-custom-black1 absolute inline-flex  top-4">
@@ -121,7 +121,7 @@
                 {{-- comments --}}
 
                 <button @click="comment_show=!comment_show"><i class="fa-solid fa-comment" style="color: #2563eb"></i>
-                    <span class="text-white">{{ $comments_counter }}</span></button>
+                    <span class="text-gray-500">{{ $comments_counter }}</span></button>
 
             </div>
 

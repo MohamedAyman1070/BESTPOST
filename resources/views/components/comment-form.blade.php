@@ -1,4 +1,4 @@
-<form class="flex p-2 gap-2 border-b-2 border-custom-black2">
+<form class="flex p-2 gap-2  border-custom-black2">
     <div class="">
         {{-- <div class=" w-fit  rounded-full"
             style="background-color: rgb({{ auth()->user()->background_color }});">
