@@ -3,7 +3,9 @@
     <div class="flex items-center gap-4 ">
 
         <span class="w-14 h-14 border-r-2 border-white ">
-            <img src="{{ asset('/logo-Cwhite.png') }}" alt="logo">
+            {{-- <img src="{{ asset('/logo-Cwhite.png') }}" alt="logo"> --}}
+            <img src="https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697453/logo-Cwhite_mt3sjn.png"
+                alt="logo">
         </span>
 
         <span>
