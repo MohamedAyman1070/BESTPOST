@@ -32,10 +32,10 @@ class DatabaseSeeder extends Seeder
 
         $posts = Post::all()->pluck('id');
 
-        Comment::factory(100)->create();
+        Comment::factory(50)->create();
 
 
-        React::factory(500)->create();
+        React::factory(100)->create();
 
 
         // React::factory()->create([
@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         //     'user_id'=>$users[array_rand($users->toArray())],
         // ]) ; 
 
-        
-        
+
+
     }
 }
