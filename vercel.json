@@ -1,0 +1,47 @@
+{
+    "version": 2,
+    "regions": ["fra1"],
+    "functions": {
+        "api/index.php": {
+            "runtime": "vercel-php@0.7.1"
+        }
+    },
+    "routes": [
+        {
+            "src": "/build/(.*)",
+            "dest": "/build/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/api/index.php"
+        }
+    ],
+    "outputDirectory": "public",
+    "env": {
+        "APP_KEY": "base64:ffdY4FhmTUoaY3dEI8h6oPIOg0PFUb6xnco1xj6FAcc=",
+        "APP_ENV": "production",
+        "APP_DEBUG": "false",
+        "APP_URL": "https://yourproductionurl.com",
+        "APP_CONFIG_CACHE": "/tmp/config.php",
+        "APP_EVENTS_CACHE": "/tmp/events.php",
+        "APP_PACKAGES_CACHE": "/tmp/packages.php",
+        "APP_ROUTES_CACHE": "/tmp/routes.php",
+        "APP_SERVICES_CACHE": "/tmp/services.php",
+        "VIEW_COMPILED_PATH": "/tmp",
+        "CLOUDINARY_URL": "cloudinary://128566277219373:TTHo7JNyNBjNpSXH_iWhyBiEtPY@drm3bzgpi",
+        "CLOUDINARY_CLOUD_NAME": "drm3bzgp",
+        "CLOUDINARY_API_KEY": "128566277219373",
+        "CLOUDINARY_API_SECRET": "TTHo7JNyNBjNpSXH_iWhyBiEtPY",
+        "CLOUDINARY_SECURE_URL": "true",
+        "CACHE_DRIVER": "array",
+        "LOG_CHANNEL": "stderr",
+        "SESSION_DRIVER": "cookie",
+
+        "DB_CONNECTION": "mysql",
+        "DB_HOST": "bestpost-bestpost-b6c3.h.aivencloud.com",
+        "DB_PORT": "20674",
+        "DB_DATABASE": "defaultdb",
+        "DB_USERNAME": "avnadmin",
+        "DB_PASSWORD": "AVNS_ajGtR47GIBB01hhF4-t"
+    }
+}
