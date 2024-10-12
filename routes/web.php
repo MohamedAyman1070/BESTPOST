@@ -20,7 +20,7 @@ Route::get('/register', function () {
 //     return view('base.index');
 // });
 
-Route::view('/', 'base.index', ['posts' => \App\Models\Post::latest()->get()]);
+Route::view('/', 'Base.index', ['posts' => \App\Models\Post::latest()->get()]);
 
 Route::post('/signout', function (Request $r) {
     Auth::logout();
