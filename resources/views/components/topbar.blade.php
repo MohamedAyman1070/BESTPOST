@@ -3,7 +3,7 @@
     <div class="flex items-center gap-4 ">
 
         <span class="w-14 h-14 border-r-2 border-white ">
-            <img src="{{ asset('images/logo-Cwhite.png') }}" alt="logo">
+            <img src="{{ asset('/images/logo-Cwhite.png') }}" alt="logo">
         </span>
 
         <span>
