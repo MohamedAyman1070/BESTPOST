@@ -12,6 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::dropIfExists('followers');
         Schema::create('followers', function (Blueprint $table) {
             $table->id();
             // $table->bigInteger('follower');
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_relations');
+        Schema::dropIfExists('followers');
     }
 };
