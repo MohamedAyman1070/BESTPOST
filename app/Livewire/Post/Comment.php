@@ -15,6 +15,7 @@ class Comment extends Component
     public $owner;
     public $reacts;
     public $since;
+    public $comment_body; //for nested comments
 
     public $react_counter;
 
