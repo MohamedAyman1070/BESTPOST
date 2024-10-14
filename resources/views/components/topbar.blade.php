@@ -1,6 +1,5 @@
-<div class="p-2 bg-[#1a1d1f] text-4xl text-white sm:grid sm:grid-cols-2 flex flex-col  w-full ">
-
-    <div class="flex items-center gap-4 ">
+<div class="p-[3px] bg-[#1a1d1f] text-4xl text-white flex justify-between flex-wrap  fixed z-50  w-full ">
+    <div class="flex items-center gap-4  ">
 
         <span class="w-14 h-14 border-r-2 border-white ">
             {{-- <img src="{{ asset('/logo-Cwhite.png') }}" alt="logo"> --}}
@@ -9,39 +8,45 @@
         </span>
 
         <span>
-            @for ($i = 0; $i < count(str_split($title ?? ($title = 'BestPost')));
-                $i++)
+            {{ 'BestPost' }}
+            {{-- @for ($i = 0; $i < count(str_split($title ?? ($title = 'BestPost'))); $i++)
                 <label class=" ml-[-10px] hover:text-[#34639a] ">{{ $title[$i] }}</label>
-            @endfor
+            @endfor --}}
         </span>
+
+        {{-- <span class="bg-red-500">
+        <img class="w-auto h-50" src="https://res.cloudinary.com/drm3bzgpi/image/upload/v1728790357/Untitled_2_moz8nt.png"
+            alt="logo">
+        </span> --}}
 
     </div>
 
-    <div class="flex justify-between sm:justify-end items-center gap-2 flex-wrap text-2xl ">
+    <div class="flex  justify-end items-center gap-2 flex-wrap text-2xl mr-4">
 
         @guest
-            <div>
-                <a href="/login">Login</a>
+            <div class="sm:flex justify-between gap-4 hidden ">
+                <div>
+                    <a href="/login">Login</a>
+                </div>
+                <div>
+                    <a href="/register">Register</a>
+                </div>
             </div>
-            <div>
-                <a href="/register">Register</a>
+            <div class="sm:hidden block">
+                @include('components.dropdown')
             </div>
         @endguest
 
         @auth
-            <div class="flex gap-2 items-center sm:flex-row flex-col w-full sm:w-fit">
 
-                <livewire:topbar.avatar />
+            {{-- <livewire:topbar.avatar />
+               --}}
+            {{-- <!-- todo: put sidebar here> --}}
+            <x-sidebar-btn />
+            {{-- @include('components.sidebar-btn') --}}
 
-
-
-
-
-                @include('components.dropdown')
-
-
-            </div>
         @endauth
+
 
     </div>
 

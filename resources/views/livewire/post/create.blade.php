@@ -1,6 +1,6 @@
-<div class="m-auto w-full sm:w-4/5  h-full flex justify-center gap-4 items-center flex-col  ">
+<div class="m-auto w-full sm:w-4/5  h-full flex justify-center gap-4 items-center flex-col mt-8 ">
 
-    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading >
+    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading>
         Loading...
     </div>
 
@@ -52,23 +52,22 @@
             </div>
         </div>
 
-        <div class="w-full flex text-white text-xl " >
-           
+        <div class="w-full flex text-white text-xl ">
+
             <textarea placeholder="your creativity is located here . . ." wire:model.defer="input"
                 class=" p-2 resize-none bg-transparent outline-none w-full flex-grow border-2 border-[#111315] rounded 
             {{ $bold ? 'font-bold' : '' }}
             {{ $red ? 'text-red-600' : '' }}
             {{ $blue ? 'text-blue-600' : '' }}
-            {{ $green ? 'text-green-600' : '' }}"
-            >
+            {{ $green ? 'text-green-600' : '' }}">
          </textarea>
             <button class="p-2 rounded text-white text-xl bg-blue-500" wire:click="insert">insert</button>
-        
-          
+
+
         </div>
 
     </div>
 
-    
+
 
 </div>

@@ -1,6 +1,6 @@
 <div class="  w-full  sm:col-span-4 h-full text-white ">
 
-    <div class="m-auto w-4/5 h-full  border-b-2 border-black flex flex-col items-center justify-start">
+    <div class="m-auto w-4/5 h-full   flex flex-col items-center justify-start">
 
         @if (auth()->user()->photos)
             <span class="h-fit rounded-full w-fit mt-14">

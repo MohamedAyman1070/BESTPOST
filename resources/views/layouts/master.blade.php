@@ -12,12 +12,14 @@
     <title>BestPost</title>
 </head>
 
-<body class="bg-custom-black2 m-0 h-screen">
-    <div class=" h-screen grid grid-cols-1 w-full gap-2">
-        @include('components.topbar')
-        <livewire:err-toast />
+<body class="bg-custom-black2 m-0 p-0  ">
+    {{-- <div class="  flex flex-col h-full w-full "> --}}
+    @include('components.topbar')
+    <livewire:err-toast />
+    <div class="pt-20 ">
         @yield('content')
     </div>
+    {{-- </div> --}}
     @livewireScripts
 </body>
 

@@ -10,12 +10,12 @@
                 <template x-if="!show">
                     <button @click="show = true" class="p-2 m-2 bg-blue-500 rounded"><i class="fa-solid fa-bars"></i></button>
                 </template>
-              
-                
-                <div x-show="show" x-transition @click.outside="show = false" class="h-full ">
+
+
+                {{-- <div x-show="show" x-transition @click.outside="show = false" class="h-full ">
                     @include('components.sidebar')
-                </div>
-            </div> 
+                </div> --}}
+            </div>
 
             <livewire:profile.edit />
         </div>
