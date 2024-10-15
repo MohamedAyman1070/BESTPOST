@@ -2,6 +2,8 @@
 
 namespace App\Livewire\Post;
 
+use App\Events\CommentsEvent;
+use App\Events\ReactsEvent;
 use App\Livewire\Profile\Post;
 use App\Models\Comment;
 use App\Models\Photo;
@@ -82,6 +84,40 @@ class PostComponent extends Component
         }
     }
 
+    #[On('echo:react-channel,ReactsEvent')]
+    public function renderReactions()
+    {
+        $react_array = ModelsPost::find($this->post['id'])->reacts->toArray();
+        $this->react_counter = ['love' => 0, 'lough' => 0, 'sad' => 0,  'anger' => 0, 'wow' => 0, 'all' => 0];
+        foreach ($react_array as $arr) {
+            switch ($arr['react']) {
+                case 'love':
+                    $this->react_counter['love']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'lough':
+                    $this->react_counter['lough']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'anger':
+                    $this->react_counter['anger']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'wow':
+                    $this->react_counter['wow']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'sad':
+                    $this->react_counter['sad']++;
+                    $this->react_counter['all']++;
+                    break;
+                default:
+                    return new LogicException;
+                    break;
+            }
+        }
+    }
+
 
     public function react($reaction)
     {
@@ -126,7 +162,8 @@ class PostComponent extends Component
 
 
         // $this->react_counter[$data['react']]++;
-        $this->reaction_handler('DB');
+        $this->reaction_handler('DB'); // this will save time for the current user
+        broadcast(new ReactsEvent())->toOthers(); //this will take a little time for other users
     }
 
     public function follow() {}
@@ -156,9 +193,10 @@ class PostComponent extends Component
         ]);
         $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
         $this->comments_counter = count($this->comments);
+        broadcast(new CommentsEvent())->toOthers();
     }
 
-    #[On('delete-comment')]
+    #[On(['echo:comments-channel,CommentsEvent'])]
     public function renderComments()
     {
         $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();

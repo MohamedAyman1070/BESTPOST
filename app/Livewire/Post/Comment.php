@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Post;
 
+use App\Events\CommentsEvent;
 use App\Models\Comment as ModelsComment;
 use App\Models\React;
 use Carbon\Carbon;
@@ -72,7 +73,8 @@ class Comment extends Component
     {
         $this->authorize('update-delete-comment', [Auth::id(), $this->comment['user_id']]);
         ModelsComment::find($this->comment['id'])->delete();
-        $this->dispatch('delete-comment');
+        // $this->dispatch('delete-comment');
+        event(new CommentsEvent());
     }
 
     public function edit() {}

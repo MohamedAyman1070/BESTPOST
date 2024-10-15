@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\TestEvent;
 use App\Http\Controllers\GoogleAuthController;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -62,3 +63,5 @@ Route::get('/post/edit/{id}', function ($id) {
     endif;
     return throw new NotFoundHttpException();
 });
+
+
