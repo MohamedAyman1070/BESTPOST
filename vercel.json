@@ -47,6 +47,19 @@
         "DB_PASSWORD": "AVNS_ajGtR47GIBB01hhF4-t",
 
         "GOOGLE_CLIENT_ID": "29266138795-i8d3um09pmk1rr98hddcr2dpi6p1ai3c.apps.googleusercontent.com",
-        "GOOGLE_CLIENT_SECRET": "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"
+        "GOOGLE_CLIENT_SECRET": "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",
+
+        "BROADCAST_CONNECTION": "pusher",
+        "PUSHER_APP_ID": "1871465",
+        "PUSHER_APP_KEY": "eb916311326599c58186",
+        "PUSHER_APP_SECRET": "fa2f1374e1010369a9c2",
+        "PUSHER_APP_CLUSTER": "eu",
+
+        "VITE_APP_NAME": "${APP_NAME}",
+        "VITE_PUSHER_APP_KEY": "${PUSHER_APP_KEY}",
+        "VITE_PUSHER_HOST": "${PUSHER_HOST}",
+        "VITE_PUSHER_PORT": "${PUSHER_PORT}",
+        "VITE_PUSHER_SCHEME": "${PUSHER_SCHEME}",
+        "VITE_PUSHER_APP_CLUSTER": "${PUSHER_APP_CLUSTER}"
     }
 }
