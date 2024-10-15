@@ -1,7 +1,7 @@
 <div class="m-2 ">
-    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading>
+    {{-- <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading>
         Loading...
-    </div>
+    </div> --}}
     <div x-data="{ comment_show: false }" class="flex flex-col  bg-custom-black1   rounded  ">
 
         <div class="w-full border-b-2 border-custom-black2 p-2 grid grid-cols-4   ">
