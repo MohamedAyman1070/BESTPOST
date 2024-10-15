@@ -169,7 +169,7 @@
                 <i
                     class="fa-solid fa-right-from-bracket group-hover:text-blue-600  transition-colors duration-200 "></i>
 
-                <form action="/logout">
+                <form action="/signout">
                     <button><span class="font-QuicksandMedium">Logout</span></button>
                 </form>
 
