@@ -18,7 +18,7 @@
                             <a href="/profile/posts-oldest">Oldest</a>
                         </div>
                         <div class="p-2 hover:text-blue-500 transition rounded  bg-custom-black2">
-                            <a href="/">Popular</a>
+                            <a href="/profile/posts-popular">Popular</a>
                         </div>
                     </div>
 

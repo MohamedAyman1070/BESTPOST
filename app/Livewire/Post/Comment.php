@@ -3,10 +3,12 @@
 namespace App\Livewire\Post;
 
 use App\Events\CommentsEvent;
+use App\Events\ReactsEvent;
 use App\Models\Comment as ModelsComment;
 use App\Models\React;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use LogicException;
 
@@ -39,6 +41,40 @@ class Comment extends Component
         } elseif ($mode === 'DB') {
             $react_array = ModelsComment::find($this->comment['id'])->reacts->toArray();
         }
+        $this->react_counter = ['love' => 0, 'lough' => 0, 'sad' => 0,  'anger' => 0, 'wow' => 0, 'all' => 0];
+        foreach ($react_array as $arr) {
+            switch ($arr['react']) {
+                case 'love':
+                    $this->react_counter['love']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'lough':
+                    $this->react_counter['lough']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'anger':
+                    $this->react_counter['anger']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'wow':
+                    $this->react_counter['wow']++;
+                    $this->react_counter['all']++;
+                    break;
+                case 'sad':
+                    $this->react_counter['sad']++;
+                    $this->react_counter['all']++;
+                    break;
+                default:
+                    return new LogicException();
+                    break;
+            }
+        }
+    }
+
+    #[On('echo:react-chaneel,ReactsEvent')]
+    public function renderReactions()
+    {
+        $react_array = ModelsComment::find($this->comment['id'])->reacts->toArray();
         $this->react_counter = ['love' => 0, 'lough' => 0, 'sad' => 0,  'anger' => 0, 'wow' => 0, 'all' => 0];
         foreach ($react_array as $arr) {
             switch ($arr['react']) {
@@ -123,7 +159,20 @@ class Comment extends Component
 
         // $this->react_counter[$data['react']]++;
         $this->reaction_handler('DB');
+        broadcast(new ReactsEvent())->toOthers();
     }
+
+    //for nested comments
+    public function comment()
+    {
+        $this->validate(['comment_body' => 'required']);
+        Comment::create([
+            'user_id' => Auth::id(),
+            'body' => $this->comment_body,
+            'comment_id' => $this->post['id'],
+        ]);
+    }
+
     public function render()
     {
         return view('livewire.post.comment');

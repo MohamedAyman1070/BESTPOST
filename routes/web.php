@@ -55,6 +55,10 @@ Route::get('/profile/posts-oldest', function () {
     return view('Profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->get()]);
 });
 
+Route::get('/profile/posts-popular', function () {
+    return view('Profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->get()]);
+});
+
 Route::get('/post/edit/{id}', function ($id) {
     $post = Post::find($id);
     if ($post) :
@@ -63,5 +67,3 @@ Route::get('/post/edit/{id}', function ($id) {
     endif;
     return throw new NotFoundHttpException();
 });
-
-
