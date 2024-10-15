@@ -5,8 +5,8 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: "pusher",
-    key: import.meta.env.VITE_PUSHER_APP_KEY,
-    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER,
+    key: "eb916311326599c58186",
+    cluster: "eu",
     forceTLS: true,
 });
 
