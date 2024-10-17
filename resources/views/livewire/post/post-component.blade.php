@@ -100,19 +100,19 @@
                         class="rounded bg-custom-black1 absolute inline-flex  top-4">
                         <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
                                 wire:click="react('love')"><span class="">❤️</span> <span
-                                    class="text-white  text-sm">{{ $react_counter['love'] }}</span> </button></li>
+                                    class="text-gray-400  text-sm">{{ $react_counter['love'] }}</span> </button></li>
                         <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
                                 wire:click="react('lough')"><span class="">😂</span> <span
-                                    class="text-white  text-sm">{{ $react_counter['lough'] }}</span> </button></li>
+                                    class="text-gray-400  text-sm">{{ $react_counter['lough'] }}</span> </button></li>
                         <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
                                 wire:click="react('sad')"><span class="">😢</span> <span
-                                    class="text-white  text-sm">{{ $react_counter['sad'] }}</span> </button></li>
+                                    class="text-gray-400  text-sm">{{ $react_counter['sad'] }}</span> </button></li>
                         <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
                                 wire:click="react('wonder')"><span class="">😲</span> <span
-                                    class="text-white  text-sm">{{ $react_counter['wow'] }}</span> </button></li>
+                                    class="text-gray-400  text-sm">{{ $react_counter['wow'] }}</span> </button></li>
                         <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
                                 wire:click="react('anger')"><span class="">😡</span> <span
-                                    class="text-white  text-sm">{{ $react_counter['anger'] }}</span> </button></li>
+                                    class="text-gray-400  text-sm">{{ $react_counter['anger'] }}</span> </button></li>
                     </div>
                 </div>
             </div>
