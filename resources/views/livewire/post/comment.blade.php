@@ -49,41 +49,43 @@
         <p class="text-white ">{{ $comment['body'] }}</p>
     </div>
 
+    {{-- comments form and reactions --}}
+    <div x-data="{ showForm: false }" class=" flex flex-col  gap-2 ml-16 ">
 
-    <div class=" flex  gap-2 ml-16">
+        <div class="flex  gap-2">
+            <div x-data="{ open: false }" class="relative  text-nowrap w-fit  ">
+                <button @click="open = !open">
+                    <i class="fa-solid fa-heart" style="color: red"></i>
+                    <span class="text-gray-500 text-sm">{{ $react_counter['all'] }}</span>
+                </button>
+                <div x-show="open" @click.outside="open = false"
+                    class="rounded bg-custom-black1 absolute inline-flex  top-4">
+                    <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
+                            wire:click="react('love')"><span class="">❤️</span> <span
+                                class="text-white  text-sm">{{ $react_counter['love'] }}</span> </button></li>
+                    <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
+                            wire:click="react('lough')"><span class="">😂</span> <span
+                                class="text-white  text-sm">{{ $react_counter['lough'] }}</span> </button></li>
+                    <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
+                            wire:click="react('sad')"><span class="">😢</span> <span
+                                class="text-white  text-sm">{{ $react_counter['sad'] }}</span> </button></li>
+                    <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
+                            wire:click="react('wonder')"><span class="">😲</span> <span
+                                class="text-white  text-sm">{{ $react_counter['wow'] }}</span> </button></li>
+                    <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
+                            wire:click="react('anger')"><span class="">😡</span> <span
+                                class="text-white  text-sm">{{ $react_counter['anger'] }}</span> </button></li>
+                </div>
+            </div>
 
-        <div x-data="{ open: false }" class="relative w-1/12 text-nowrap   ">
-            <button @click="open = !open">
-                <i class="fa-solid fa-heart" style="color: red"></i>
-                <span class="text-gray-500 text-sm">{{ $react_counter['all'] }}</span>
-            </button>
-            <div x-show="open" @click.outside="open = false"
-                class="rounded bg-custom-black1 absolute inline-flex  top-4">
-                <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
-                        wire:click="react('love')"><span class="">❤️</span> <span
-                            class="text-white  text-sm">{{ $react_counter['love'] }}</span> </button></li>
-                <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
-                        wire:click="react('lough')"><span class="">😂</span> <span
-                            class="text-white  text-sm">{{ $react_counter['lough'] }}</span> </button></li>
-                <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
-                        wire:click="react('sad')"><span class="">😢</span> <span
-                            class="text-white  text-sm">{{ $react_counter['sad'] }}</span> </button></li>
-                <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
-                        wire:click="react('wonder')"><span class="">😲</span> <span
-                            class="text-white  text-sm">{{ $react_counter['wow'] }}</span> </button></li>
-                <li class="  list-none m-2"><button class="flex justify-between items-center gap-2"
-                        wire:click="react('anger')"><span class="">😡</span> <span
-                            class="text-white  text-sm">{{ $react_counter['anger'] }}</span> </button></li>
+            <div class="text-gray-500 w-full ">
+                <button @click="showForm= !showForm">Reply</button>
+
             </div>
         </div>
-
-        <div x-data="{ showForm: false }" class="text-gray-500 w-full ">
-            <button @click="showForm= !showForm">Reply</button>
-            <div x-show="showForm" @click.outside="showForm=false">
-                @include('components.comment-form')
-            </div>
+        <div x-show="showForm" @click.outside="showForm=false" class="">
+            @include('components.comment-form')
         </div>
-
 
     </div>
 
