@@ -3,7 +3,9 @@
 use App\Events\TestEvent;
 use App\Http\Controllers\GoogleAuthController;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
@@ -56,7 +58,9 @@ Route::get('/profile/posts-oldest', function () {
 });
 
 Route::get('/profile/posts-popular', function () {
-    return view('Profile-page.posts', ['posts' => Post::where('user_id', Auth::user()->id)->get()]);
+
+
+    return view('Profile-page.posts', ['posts' => Post::withCount('reacts')->orderBY('reacts_count', 'desc')->where('user_id', Auth::user()->id)->get()]);
 });
 
 Route::get('/post/edit/{id}', function ($id) {
