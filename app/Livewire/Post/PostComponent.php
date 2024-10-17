@@ -121,49 +121,52 @@ class PostComponent extends Component
 
     public function react($reaction)
     {
-
-        $data = [
-            'reactable_id' => $this->post['id'],
-            'reactable_type' => 'App\Models\Post',
-            'user_id' => auth()->user()->id,
-        ];
-        switch ($reaction) {
-            case 'love':
-                $data['react'] = 'love';
-                break;
-            case 'lough':
-                $data['react'] = 'lough';
-                break;
-            case 'anger':
-                $data['react'] = 'anger';
-                break;
-            case 'wonder':
-                $data['react'] = 'wow';
-                break;
-            case 'sad':
-                $data['react'] = 'sad';
-                break;
-            default:
-                return new LogicException();
-        }
-
-
-        if ($reaction_obj = React::where('user_id', auth()->user()->id)->where('reactable_id', $this->post['id'])->first()) {
-
-            if ($reaction_obj->react === $data['react']) {
-                $reaction_obj->delete();
-            } else {
-                $reaction_obj->react = $data['react'];
-                $reaction_obj->save();
+        if (!Auth::user()):
+            redirect()->route('login');
+        else:
+            $data = [
+                'reactable_id' => $this->post['id'],
+                'reactable_type' => 'App\Models\Post',
+                'user_id' => auth()->user()->id,
+            ];
+            switch ($reaction) {
+                case 'love':
+                    $data['react'] = 'love';
+                    break;
+                case 'lough':
+                    $data['react'] = 'lough';
+                    break;
+                case 'anger':
+                    $data['react'] = 'anger';
+                    break;
+                case 'wonder':
+                    $data['react'] = 'wow';
+                    break;
+                case 'sad':
+                    $data['react'] = 'sad';
+                    break;
+                default:
+                    return new LogicException();
             }
-        } else {
-            React::create($data);
-        }
 
 
-        // $this->react_counter[$data['react']]++;
-        $this->reaction_handler('DB'); // this will save time for the current user
-        broadcast(new ReactsEvent())->toOthers(); //this will take a little time for other users
+            if ($reaction_obj = React::where('user_id', auth()->user()->id)->where('reactable_id', $this->post['id'])->first()) {
+
+                if ($reaction_obj->react === $data['react']) {
+                    $reaction_obj->delete();
+                } else {
+                    $reaction_obj->react = $data['react'];
+                    $reaction_obj->save();
+                }
+            } else {
+                React::create($data);
+            }
+
+
+            // $this->react_counter[$data['react']]++;
+            $this->reaction_handler('DB'); // this will save time for the current user
+            broadcast(new ReactsEvent())->toOthers(); //this will take a little time for other users
+        endif;
     }
 
     public function follow() {}
@@ -185,16 +188,20 @@ class PostComponent extends Component
 
     public function comment()
     {
-        $this->validate(['comment_body' => 'required']);
-        Comment::create([
-            'user_id' => Auth::id(),
-            'body' => $this->comment_body,
-            'post_id' => $this->post['id'],
-        ]);
-        $this->reset('comment_body');
-        $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
-        $this->comments_counter = count($this->comments);
-        broadcast(new CommentsEvent())->toOthers();
+        if (!Auth::user()):
+            redirect()->route('login');
+        else:
+            $this->validate(['comment_body' => 'required']);
+            Comment::create([
+                'user_id' => Auth::id(),
+                'body' => $this->comment_body,
+                'post_id' => $this->post['id'],
+            ]);
+            $this->reset('comment_body');
+            $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
+            $this->comments_counter = count($this->comments);
+            broadcast(new CommentsEvent())->toOthers();
+        endif;
     }
 
     #[On(['echo:comments-channel,CommentsEvent'])]
