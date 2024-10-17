@@ -31,8 +31,10 @@
                                 Edit
                             </div> --}}
                             <div class=" w-full rounded p-2 hover:text-blue-600 hover:bg-custom-black1 transition">
-                                <button wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                    wire:click="delete()">Delete</button>
+                                <form wire:click.prevent="delete()">
+                                    <button wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                        wire:click="delete()">Delete</button>
+                                </form>
                             </div>
 
                         </div>

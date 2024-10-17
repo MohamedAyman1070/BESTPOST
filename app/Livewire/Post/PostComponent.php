@@ -191,6 +191,7 @@ class PostComponent extends Component
             'body' => $this->comment_body,
             'post_id' => $this->post['id'],
         ]);
+        $this->reset('comment_body');
         $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
         $this->comments_counter = count($this->comments);
         broadcast(new CommentsEvent())->toOthers();
