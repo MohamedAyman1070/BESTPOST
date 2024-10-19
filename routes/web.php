@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 Route::get('/login', function () {
+    dd(sys_get_temp_dir());
+
     return view('Auth.login');
 })->name('login');
 
