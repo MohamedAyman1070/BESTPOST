@@ -134,16 +134,26 @@ class Create extends Component
             $this->dispatch('show-toast', err: 'Error: Cant save an empty post to draft');
         }
     }
-    public function saveImg()
+
+    // #[On('img-uploaded')]
+    // public function test($img_info)
+    // {
+    //     //secure_url , public_id
+    //     dd($img_info);
+    // }
+    #[On('img-uploaded')]
+    public function saveImg($img_info)
     {
         try {
-            $this->validate(['photo' => 'image|max:1024']);
+            // $this->validate(['photo' => 'image|max:1024']);
 
-            $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
-            $img_url = $cloudImg->getSecurePath();
-            $this->img_public_id[] = $cloudImg->getPublicId();
-            unlink($this->photo->getRealPath());
-            $this->photo = '';
+            // $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
+            // $img_url = $cloudImg->getSecurePath();
+            $img_url = $img_info[0];
+            // $this->img_public_id[] = $cloudImg->getPublicId();
+            $this->img_public_id[] = $img_info[1];
+            // unlink($this->photo->getRealPath());
+            // $this->photo = '';
             $img_id = end($this->img_public_id);
             $this->convertedData .= "/img/$img_url/img_id/$img_id";
             $this->elements[] = $this->convertedData;
