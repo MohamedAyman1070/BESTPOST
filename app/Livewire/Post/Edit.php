@@ -84,22 +84,15 @@ class Edit extends Component
         redirect('/profile/posts');
     }
 
-    public function savePhoto($element, $pos)
+    #[On('info-uploaded')]
+    public function savePhoto($img_info, $element, $pos)
     {
         try {
-            $this->validate(['photo' => 'image|max:1024']);
-            dd($this->photo);
-            // $path = $this->photo->store(path: 'public/uploaded-img');
-            $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
-            $img_url = $cloudImg->getSecurePath();
-            $this->img_public_id[] = $cloudImg->getPublicId();
-            $img_id = end($this->img_public_id);
 
-            // $path = str_replace('public', 'storage', $path);
-            unlink($this->photo->getRealPath);
-            $this->photo = null;
+            $img_url = $img_info[0];
+            $this->img_public_id[] = $img_info[1];
+            $img_id = end($this->img_public_id);
             $this->row .= "/img/$img_url/img_id/$img_id";
-            // $this->row .= "/img/$path";
             switch ($pos) {
                 case 1:
                     $key = array_search($element, $this->clone);

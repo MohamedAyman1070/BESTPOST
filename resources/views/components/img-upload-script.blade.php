@@ -6,9 +6,15 @@
         const formData = new FormData();
         upload.onchange = () => {
             img = upload.files[0];
-            formData.append('file', img);
-            formData.append('upload_preset', 'bestpost-test-preset')
-            btn.click();
+            if (img.size > 1024) {
+                Livewire.dispatch('show-toast', {
+                    err: "image is too large"
+                })
+            } else {
+                formData.append('file', img);
+                formData.append('upload_preset', 'bestpost-test-preset')
+                btn.click();
+            }
         }
         btn.onclick = async function() {
             try {
