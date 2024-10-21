@@ -24,7 +24,7 @@
             @endif
         @endif
 
-        @if ($photo)
+        {{-- @if ($photo)
             <button class="p-1  mt-2 rounded bg-blue-500" wire:click="save_photo">confirm photo</button>
         @else
             <label for="upload" class=" mt-2 cursor-pointer">
@@ -32,11 +32,23 @@
                 <i class="fa-solid fa-upload"></i>
                 <input id="upload" hidden type="file" hidden accept="png,jpg" wire:model="photo">
             </label>
-            {{-- @dd(auth()->user()->photos) --}}
+            
             @if ($user_photo)
                 <button wire:click.prevent="removePhoto">remove photo</button>
             @endif
+        @endif --}}
+
+        <label for="upload-input" class=" mt-2  cursor-pointer">
+            Change Profile Photo
+            {{-- <i class="fa-solid fa-upload"></i> --}}
+        </label>
+        <input id="upload-input" hidden type="file" hidden accept="png,jpg" wire:model="photo">
+        <button hidden id="submit-btn"></button>
+        <x-ImgUploadScript />
+        @if ($user_photo)
+            <button wire:click.prevent="removePhoto">remove photo</button>
         @endif
+
 
         <div class=" w-full h-full  p-2 flex justify-center items-start">
             <div class="h-fit w-full sm:w-3/5  grid grid-cols-1  gap-4 ">

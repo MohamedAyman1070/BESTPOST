@@ -7,6 +7,7 @@ use App\Models\User;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -62,21 +63,24 @@ class Edit extends Component
             $this->dispatch('show-toast', err: $e->getMessage());
         }
     }
-    public function save_photo()
+    #[On('img-uploaded')]
+    public function save_photo($img_info)
     {
         try {
-            $this->validate(['photo' =>  'image|max:1024']);
+            // $this->validate(['photo' =>  'image|max:1024']);
             // $this->path = $this->photo->store(path: '/public/uploaded-img/avatar');
             if ($this->user_photo) {
                 Cloudinary::destroy($this->user_photo->img_public_id);
             }
-            $cloudImg = $this->photo->storeOnCloudinary("BestPost/Avatar/");
-            $this->img_url = $cloudImg->getSecurePath();
-            $img_id = $cloudImg->getPublicId();
+            // $cloudImg = $this->photo->storeOnCloudinary("BestPost/Avatar/");
+            // $this->img_url = $cloudImg->getSecurePath();
+            // $img_id = $cloudImg->getPublicId();
+            $this->img_url = $img_info[0];
+            $img_id = $img_info[1];
             $this->img_public_id[] = $img_id;
             // $this->path = str_replace('public', 'storage', $this->path);
-            unlink($this->photo->getRealPath());
-            $this->photo = '';
+            // unlink($this->photo->getRealPath());
+            // $this->photo = '';
         } catch (Exception $e) {
             $this->dispatch('show-toast', err: $e->getMessage());
         }
@@ -90,6 +94,7 @@ class Edit extends Component
             $this->user_photo->delete();
             Cloudinary::destroy($this->user_photo->img_public_id);
             $this->user_photo = null;
+            $this->img_url = null;
             $this->dispatch('render-topbar');
         } else {
             $this->dispatch('show-toast', err: "Couldn't find photo");

@@ -38,7 +38,7 @@
             const formData = new FormData();
             upload.onchange = () => {
                 img = upload.files[0];
-                if (img.size > 1024) {
+                if (img.size > 1024 * 1024) {
                     Livewire.dispatch('show-toast', {
                         err: "image is too large"
                     })
