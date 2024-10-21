@@ -77,8 +77,8 @@ class Edit extends Component
             }
         }
         $post->save();
-        $deleted_imgs = array_diff($this->img_public_id,$saved_img_from_cloud);
-        foreach($deleted_imgs as $img_id){
+        $deleted_imgs = array_diff($this->img_public_id, $saved_img_from_cloud);
+        foreach ($deleted_imgs as $img_id) {
             Cloudinary::destroy($img_id);
         }
         redirect('/profile/posts');
@@ -88,6 +88,7 @@ class Edit extends Component
     {
         try {
             $this->validate(['photo' => 'image|max:1024']);
+            dd($this->photo);
             // $path = $this->photo->store(path: 'public/uploaded-img');
             $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
             $img_url = $cloudImg->getSecurePath();

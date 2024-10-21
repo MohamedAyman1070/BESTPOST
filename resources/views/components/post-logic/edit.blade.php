@@ -29,7 +29,7 @@
         @click="{{ $posName }} = false , photo=null   "
         wire:click="saveRow('{{ $element }}'  , {{ $posNumber }} )">save</button>
 
-    <button x-on:click="{{$posName}} = false , input='' ,photo='' "
+    <button x-on:click="{{ $posName }} = false , input=null ,photo=null "
         class="w-4 h-4 absolute right-5  -top-2  rounded-full bg-red-600 flex justify-center items-center">
         <p class="-mt-1">x</p>
     </button>
