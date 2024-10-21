@@ -67,20 +67,14 @@ class Edit extends Component
     public function save_photo($img_info)
     {
         try {
-            // $this->validate(['photo' =>  'image|max:1024']);
-            // $this->path = $this->photo->store(path: '/public/uploaded-img/avatar');
+
             if ($this->user_photo) {
                 Cloudinary::destroy($this->user_photo->img_public_id);
             }
-            // $cloudImg = $this->photo->storeOnCloudinary("BestPost/Avatar/");
-            // $this->img_url = $cloudImg->getSecurePath();
-            // $img_id = $cloudImg->getPublicId();
+
             $this->img_url = $img_info[0];
             $img_id = $img_info[1];
             $this->img_public_id[] = $img_id;
-            // $this->path = str_replace('public', 'storage', $this->path);
-            // unlink($this->photo->getRealPath());
-            // $this->photo = '';
         } catch (Exception $e) {
             $this->dispatch('show-toast', err: $e->getMessage());
         }
