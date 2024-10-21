@@ -145,15 +145,8 @@ class Create extends Component
     public function saveImg($img_info)
     {
         try {
-            // $this->validate(['photo' => 'image|max:1024']);
-
-            // $cloudImg = $this->photo->storeOnCloudinary('BestPost/post_images');
-            // $img_url = $cloudImg->getSecurePath();
             $img_url = $img_info[0];
-            // $this->img_public_id[] = $cloudImg->getPublicId();
             $this->img_public_id[] = $img_info[1];
-            // unlink($this->photo->getRealPath());
-            // $this->photo = '';
             $img_id = end($this->img_public_id);
             $this->convertedData .= "/img/$img_url/img_id/$img_id";
             $this->elements[] = $this->convertedData;

@@ -36,52 +36,13 @@
 
             <div class="flex  justify-end gap-4 ">
 
-                {{-- @if ($photo) --}}
-                {{-- <div class="flex gap-2 m-2 items-center">
-                        <button class="bg-blue-500 font-bold rounded p-2" wire:click="saveImg"><i
-                                class="fa-solid fa-upload"></i></button>
-                    </div> --}}
-                {{-- @else --}}
                 <label for="upload-input" wire:loading.attr="disabled"
                     class="block rounded p-2  text-white cursor-pointer">
                     <i class="fa-regular fa-image"></i>
                 </label>
                 <input type="file" id="upload-input" hidden accept="png,jpg">
                 <button id="submit-btn" hidden>ok</button>
-                @script
-                    <script>
-                        const btn = document.getElementById('submit-btn');
-                        const upload = document.getElementById('upload-input');
-                        var img = null
-                        const formData = new FormData();
-                        upload.onchange = () => {
-                            img = upload.files[0];
-                            formData.append('file', img);
-                            formData.append('upload_preset', 'bestpost-test-preset')
-                            btn.click();
-                        }
-                        btn.onclick = async function() {
-                            try {
-                                const response = await fetch('https://api.cloudinary.com/v1_1/drm3bzgpi/image/upload', {
-                                    method: 'POST',
-                                    body: formData
-                                });
-                                const data = await response.json();
-
-                                const img_info = {
-                                    img_info: [
-                                        data.secure_url,
-                                        data.public_id
-                                    ]
-                                };
-                                Livewire.dispatch('img-uploaded', img_info);
-                            } catch (e) {
-                                console.log(e)
-                            }
-                        }
-                    </script>
-                @endscript
-                {{-- @endif --}}
+                <x-ImgUploadScript />
 
             </div>
         </div>
