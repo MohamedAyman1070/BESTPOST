@@ -42,7 +42,7 @@
             Change Profile Photo
             {{-- <i class="fa-solid fa-upload"></i> --}}
         </label>
-        <input id="upload-input" hidden type="file" hidden accept="png,jpg" wire:model="photo">
+        <input id="upload-input" hidden type="file" hidden accept="png,jpg">
         <button hidden id="submit-btn"></button>
         <x-ImgUploadScript />
         @if ($user_photo)
