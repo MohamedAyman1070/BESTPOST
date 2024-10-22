@@ -36,7 +36,7 @@ class Container extends Component
         return $this->page_n < $this->maxPages;
     }
 
-    
+
     public function render()
     {
         return view('livewire.base.container');

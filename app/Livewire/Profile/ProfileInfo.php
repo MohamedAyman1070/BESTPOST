@@ -11,29 +11,28 @@ use Livewire\Component;
 
 class ProfileInfo extends Component
 {
-    public $username ;
-    public $email; 
+    public $username;
+    public $email;
     public $created_at;
-    public  $background_color ;
-    public $postsCount ; 
+    public  $background_color;
+    public $postsCount;
     public $followersCount;
     public $followingCount;
     public $reactCount;
 
-    public function mount(){
-        
+    public function mount()
+    {
+
         $reacts = React::whereBelongsTo(Auth::user())->get();
-        $this->reactCount =count($reacts);
+        $this->reactCount = count($reacts);
 
         $posts = Post::whereBelongsTo(Auth::user())->get();
         $this->postsCount = count($posts);
 
-        $followers = Follower::getUserFollowers(Auth::user());
-        $this->followersCount = count($followers);
-        
-        $following = Follower::getFollowing(Auth::user());
-        $this->followingCount = count($following);
-        
+        $this->followersCount = auth()->user()->followers->count();
+
+        $this->followingCount = auth()->user()->following->count();
+
 
         $this->username = Auth::user()->name;
         $this->email = Auth::user()->email;

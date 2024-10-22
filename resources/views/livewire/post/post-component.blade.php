@@ -65,8 +65,12 @@
                         @endcan
 
                         @cannot('update-delete-post', $post['user_id'])
-                            <i class="fa-regular fa-plus" style="color: #2563eb;"></i>
-                            <button class="text-xl  text-blue-600" wire:click="follow">Follow</button>
+                            @if (!$is_follow)
+                                <i class="fa-regular fa-plus" style="color: #2563eb;"></i>
+                                <button class="text-xl  text-blue-600" wire:click="follow">Follow</button>
+                            @else
+                                <button class="text-xl  text-blue-600" wire:click="unfollow">Unfollow</button>
+                            @endif
                         @endcannot
                     @endif
 

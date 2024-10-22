@@ -2,6 +2,8 @@
 
 use App\Events\TestEvent;
 use App\Http\Controllers\GoogleAuthController;
+use App\Livewire\Profile\Follower;
+use App\Livewire\Profile\Following;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +12,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
+
 
 Route::get('/login', function () {
     return view('Auth.login');
@@ -57,6 +61,8 @@ Route::middleware('auth')->group(function () {
         endif;
         return throw new NotFoundHttpException();
     });
+    Route::get('/profile/followers', Follower::class);
+    Route::get('/profile/following', Following::class);
 });
 
 

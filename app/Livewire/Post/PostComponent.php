@@ -9,6 +9,7 @@ use App\Models\Comment;
 use App\Models\Photo;
 use App\Models\Post as ModelsPost;
 use App\Models\React;
+use App\Models\User;
 use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use DateTime;
@@ -27,6 +28,7 @@ class PostComponent extends Component
     public $comment_body;
     public $comments;
     public $comments_counter;
+    public $is_follow;
 
 
     public function mount()
@@ -37,7 +39,9 @@ class PostComponent extends Component
         $this->comments = array_reverse($this->post['comments']);
         $this->comments_counter = count($this->comments);
 
-        // $this->comments = ModelsPost::find($this->post['id'])::with('comments')->get();
+        if (auth()->user()) {
+            auth()->user()->following->find($this->post['user_id']) ? $this->is_follow = true : $this->is_follow = false;
+        }
 
         $this->reaction_handler();
 
@@ -169,7 +173,38 @@ class PostComponent extends Component
         endif;
     }
 
-    public function follow() {}
+    public function follow()
+    {
+
+        if (!Auth::user()):
+            redirect()->route('login');
+        else:
+            $this->authorize('follow', $this->post['user_id']);
+            $user = User::find(Auth::id());
+            $user->following()->attach($this->post['user_id']);
+            $this->is_follow = true;
+            $this->dispatch('render');
+        endif;
+    }
+    public function unfollow()
+    {
+        if (!Auth::user()):
+            redirect()->route('login');
+        else:
+            $this->authorize('unfollow', $this->post['user_id']);
+            $user = User::find(Auth::id());
+            $user->following()->detach($this->post['user_id']);
+            $this->is_follow = false;
+            $this->dispatch('render');
+
+        endif;
+    }
+
+    #[On('render')]
+    public function renderFollowBtn()
+    {
+        auth()->user()->following->find($this->post['user_id']) ? $this->is_follow = true : $this->is_follow = false;
+    }
 
     public function delete()
     { // Issue # DOM  not rendered immediately after deletion
