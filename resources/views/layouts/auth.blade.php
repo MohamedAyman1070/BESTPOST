@@ -12,8 +12,8 @@
 
 <body class="  m-0 p-0 overflow-hidden">
 
-    <div class="grid grid-cols-2 h-screen ">
-        <div class=" bg-cover bg-center  flex justify-center gap-80   flex-col items-center"
+    <div class="grid gird-cols-1 sm:grid-cols-2 h-screen ">
+        <div class=" bg-cover bg-center hidden sm:flex justify-center gap-80   flex-col items-center"
             style="background-image: url('{{ 'https://th.bing.com/th/id/R.0f9a5b95063c7b60c0626f2a0d1e8a19?rik=6rEFw346sPVQMg&pid=ImgRaw&r=0' }}')">
 
             {{-- style="background-image: url('{{ 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728698153/graph_vcnzme.webp' }}')"> --}}
