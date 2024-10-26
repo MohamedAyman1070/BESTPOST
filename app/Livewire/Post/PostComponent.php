@@ -40,7 +40,6 @@ class PostComponent extends Component
 
 
 
-
         $this->comments = array_reverse($this->post['comments']);
         $this->comments_counter = count($this->comments);
 

@@ -2,9 +2,7 @@
 
 
     <div class="m-auto w-4/5 h-full  flex flex-col items-center justify-start">
-        <div class="text-blue-500 text-xl font-bold text-center animate-pulse" wire:loading>
-            Loading...
-        </div>
+
         @if ($img_url)
             <span class="h-fit rounded-full w-fit mt-14">
                 <img class="w-60 h-60 rounded-full" src="{{ $img_url }}" alt="profile">
@@ -60,7 +58,9 @@
 
 
                 <div class=" p-6 text-xl flex justify-center rounded relative  ">
-                    <button class="bg-blue-500 p-2 text-xl w-full sm:w-fit rounded" wire:click="Edit">Edit</button>
+                    <button class="bg-custom-black1  p-2 text-xl w-full sm:w-fit rounded" wire:click="Edit"
+                        wire:loading.remove>Edit</button>
+                    @include('components.spinner-btn', ['target' => 'Edit'])
                 </div>
 
 
