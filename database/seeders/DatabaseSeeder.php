@@ -26,25 +26,10 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        $users = User::all()->pluck('id');
+        Post::factory(30)->create();
 
-        Post::factory(50)->create();
+        Comment::factory(80)->create();
 
-        $posts = Post::all()->pluck('id');
-
-        Comment::factory(50)->create();
-
-
-        React::factory(100)->create();
-
-
-        // React::factory()->create([
-        //     'reactable_id' => $posts[array_rand($posts->toArray())],
-        //     'reactable_type' => 'App\Models\Post' , 
-        //     'user_id'=>$users[array_rand($users->toArray())],
-        // ]) ; 
-
-
-
+        React::factory(300)->create();
     }
 }

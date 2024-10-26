@@ -14,7 +14,6 @@ class Container extends Component
     public $maxPages;
     public $postArrayChunks;
     public $posts;
-
     #[On('delete-post')]
     public function mount()
     {
@@ -30,6 +29,7 @@ class Container extends Component
     {
         $this->page_n++;
     }
+
 
     public function hasMorePages()
     {

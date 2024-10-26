@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'background_color',
         'google_id',
+        'userTag'
     ];
 
     /**
@@ -39,9 +40,6 @@ class User extends Authenticatable
 
     protected $with = [
         'photos',
-        // 'posts' ,
-        //     // 'followers' ,
-        //     'reacts',
     ];
 
     /**
@@ -60,9 +58,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-    // public function followers(){
-    //     return $this->belongsToMany(Follower::class);
-    // }
+
     public function reacts()
     {
         return $this->hasMany(React::class);

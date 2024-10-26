@@ -7,6 +7,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Livewire\Livewire;
 
 class GoogleAuthController extends Controller
 {
@@ -28,10 +29,18 @@ class GoogleAuthController extends Controller
                 $color[] = ',' . (string)rand(50, 255);
                 $color[] = ',' . (string)rand(50, 255);
 
+                $email_segment = substr($google_user->getEmail(), 0, strpos($google_user->getEmail(), '@'));
+                if (strlen($email_segment) > 12) {
+                    $email_segment = substr($email_segment, 0, 11);
+                }
+                $rand_arr = [rand(0, 9), rand(0, 9), rand(0, 9)];
+                $userTag = '@' . strtoupper($email_segment) . implode($rand_arr);
+
                 $newUser = User::create([
                     'google_id' => $google_user->getId(),
                     'name' => $google_user->getName(),
                     'email' => $google_user->getEmail(),
+                    'userTag' => $userTag,
                     'background_color' => implode($color),
                 ]);
 
@@ -41,7 +50,9 @@ class GoogleAuthController extends Controller
             Auth::login($user);
             return redirect('/');
         } catch (Exception $e) {
-            dd('ERR : ', $e->getMessage());
+            // dd('ERR : ', $e->getMessage());
+            redirect()->back();
+            Livewire::dispatch('show-toast', err: $e->getMessage());
         }
     }
 }

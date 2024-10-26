@@ -13,31 +13,34 @@ class ProfileInfo extends Component
 {
     public $username;
     public $email;
+    public $userTag;
     public $created_at;
     public  $background_color;
     public $postsCount;
     public $followersCount;
     public $followingCount;
     public $reactCount;
+    public $user;
 
     public function mount()
     {
-
-        $reacts = React::whereBelongsTo(Auth::user())->get();
+        $this->user = User::where('userTag', $this->userTag)->first();
+        $reacts = React::whereBelongsTo($this->user)->get();
         $this->reactCount = count($reacts);
 
-        $posts = Post::whereBelongsTo(Auth::user())->get();
+        $posts = Post::whereBelongsTo($this->user)->get();
         $this->postsCount = count($posts);
 
-        $this->followersCount = auth()->user()->followers->count();
+        $this->followersCount = $this->user->followers->count();
 
-        $this->followingCount = auth()->user()->following->count();
+        $this->followingCount = $this->user->following->count();
 
 
-        $this->username = Auth::user()->name;
-        $this->email = Auth::user()->email;
-        $this->created_at = Auth::user()->created_at;
-        $this->background_color = Auth::user()->background_color;
+        $this->username = $this->user->name;
+        $this->email = $this->user->email;
+        $this->userTag = $this->user->userTag;
+        $this->created_at = $this->user->created_at;
+        $this->background_color = $this->user->background_color;
     }
     public function render()
     {

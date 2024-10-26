@@ -13,69 +13,73 @@
 
         <div class="font-QuicksandMedium pl-4 text-gray-400/60 text-xs text-[11px] uppercase pt-2 ">Menu</div>
 
+        <a href="/">
+            <div class="w-full flex items-center gap-x-1.5 group select-none">
+                <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
+                    href="#">
 
-        <div class="w-full flex items-center gap-x-1.5 group select-none">
-            <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-                <div
-                    class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    <i
+                        class="fa-solid fa-house group-hover:text-blue-600 dark:fill-gray-600  transition-colors duration-200"></i>
+                    <span class="font-QuicksandMedium">Home</span>
+
                 </div>
             </div>
-            <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
-                href="#">
+        </a>
+        <a href="/post-create">
+            <div class="w-full flex items-center gap-x-1.5 group select-none">
+                <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
+                    href="#">
 
-                <i
-                    class="fa-solid fa-house group-hover:text-blue-600 dark:fill-gray-600  transition-colors duration-200"></i>
-                <span class="font-QuicksandMedium"><a href="/">Home</a></span>
+                    <i
+                        class="fa-solid fa-plus group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
 
-            </div>
-        </div>
-
-        <div class="w-full flex items-center gap-x-1.5 group select-none">
-            <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-                <div
-                    class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    <span class="font-QuicksandMedium">Add Post</span>
                 </div>
             </div>
-            <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
-                href="#">
+        </a>
+        <a href="/profile/posts" class="w-full">
+            <div class="w-full flex items-center gap-x-1.5 group select-none">
+                <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    </div>
+                </div>
+                <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
+                    href="#">
 
-                <i
-                    class="fa-solid fa-plus group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
-
-                <a href="/post-create"><span class="font-QuicksandMedium">Add Post</span></a>
-            </div>
-        </div>
-
-
-        <div class="w-full flex items-center gap-x-1.5 group select-none">
-            <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
-                <div
-                    class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    <i
+                        class="fa-regular fa-file-lines group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
+                    <span class="font-QuicksandMedium">Posts</span>
                 </div>
             </div>
-            <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
-                href="#">
+        </a>
 
-                <i
-                    class="fa-regular fa-file-lines group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
-                <span class="font-QuicksandMedium"><a href="/profile/posts">Posts</a></span>
-            </div>
-        </div>
-
-        <div class="w-full flex items-center gap-x-1.5 group select-none">
-            <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+        {{-- <a href="/profile/draft" class="w-full">
+            <div class="w-full flex items-center gap-x-1.5 group select-none">
+                <div class="w-1 rounded-xl h-8 bg-transparent transition-colors duration-200 relative overflow-hidden">
+                    <div
+                        class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    </div>
+                </div>
                 <div
-                    class="absolute top-0 left-0 w-full h-[102%] translate-y-full group-hover:translate-y-0 bg-blue-600 transition-all duration-300">
+                    class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm">
+
+                    <i
+                        class="fa-solid fa-box-archive group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
+                    <span class="font-QuicksandMedium">Drafts</span>
                 </div>
             </div>
-            <div class="group-hover:bg-white/10 w-full group-active:scale-95 self-stretch pl-2 rounded flex items-center space-x-2 transition-all duration-200 dark:group-hover:text-white dark:hover:text-white text-sm"
-                href="#">
-
-                <i
-                    class="fa-solid fa-box-archive group-hover:text-blue-600 dark:fill-gray-600 transition-colors duration-200"></i>
-                <span class="font-QuicksandMedium">Drafts</span>
-            </div>
-        </div>
+        </a> --}}
 
 
 

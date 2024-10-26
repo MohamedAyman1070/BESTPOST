@@ -6,6 +6,7 @@ use App\Events\CommentsEvent;
 use App\Events\ReactsEvent;
 use App\Livewire\Profile\Post;
 use App\Models\Comment;
+use App\Models\Draft;
 use App\Models\Photo;
 use App\Models\Post as ModelsPost;
 use App\Models\React;
@@ -13,6 +14,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -29,15 +31,19 @@ class PostComponent extends Component
     public $comments;
     public $comments_counter;
     public $is_follow;
+    public $is_in_draft = false;
 
 
     public function mount()
     {
-
         $this->post['body'] = explode("\n", $this->post['body']);
+
+
+
 
         $this->comments = array_reverse($this->post['comments']);
         $this->comments_counter = count($this->comments);
+
 
         if (auth()->user()) {
             auth()->user()->following->find($this->post['user_id']) ? $this->is_follow = true : $this->is_follow = false;
@@ -207,7 +213,7 @@ class PostComponent extends Component
     }
 
     public function delete()
-    { // Issue # DOM  not rendered immediately after deletion
+    {
 
         $this->authorize('update-delete-post', $this->post['user_id']);
         ModelsPost::all()->where('id', $this->post['id'])->first()->delete();
@@ -223,29 +229,35 @@ class PostComponent extends Component
 
     public function comment()
     {
-        if (!Auth::user()):
-            redirect()->route('login');
-        else:
-            $this->validate(['comment_body' => 'required']);
-            Comment::create([
-                'user_id' => Auth::id(),
-                'body' => $this->comment_body,
-                'post_id' => $this->post['id'],
-            ]);
-            $this->reset('comment_body');
-            $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
-            $this->comments_counter = count($this->comments);
-            broadcast(new CommentsEvent())->toOthers();
-        endif;
+        try {
+            if (!Auth::user()):
+                redirect()->route('login');
+            else:
+                $this->validate(['comment_body' => 'required']);
+                Comment::create([
+                    'user_id' => Auth::id(),
+                    'body' => $this->comment_body,
+                    'post_id' => $this->post['id'],
+                ]);
+                $this->reset('comment_body');
+                broadcast(new CommentsEvent($this->post['id']));
+            endif;
+        } catch (Exception $e) {
+            $this->dispatch('show-toast', err: "Cannot submit an empty comment!");
+        }
     }
 
     #[On(['echo:comments-channel,CommentsEvent'])]
-    public function renderComments()
+    public function renderComments($payload)
     {
-        $this->comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
-        $this->comments_counter = count($this->comments);
+        if (isset($payload['post_id'])) {
+            if ($payload['post_id'] == $this->post['id']):
+                $current_comments = Comment::latest()->where('post_id', $this->post['id'])->get()->toArray();
+                $this->comments = $current_comments;
+                $this->comments_counter = count($current_comments);
+            endif;
+        }
     }
-
 
     public function render()
     {

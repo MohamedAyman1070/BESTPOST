@@ -23,17 +23,24 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $color =array();
-        $color[] = rand(50 , 255).',';
-        $color[] = rand(50 , 255).',';
-        $color[] = rand(50 , 255);
-        
+        $color = array();
+        $color[] = rand(50, 255) . ',';
+        $color[] = rand(50, 255) . ',';
+        $color[] = rand(50, 255);
+        $email = fake()->unique()->safeEmail();
+        $email_segment = substr($email, 0, strpos($email, '@'));
+        if (strlen($email_segment) > 12) {
+            $email_segment = substr($email_segment, 0, 11);
+        }
+        $rand_arr = [rand(0, 9), rand(0, 9), rand(0, 9)];
+        $userTag = '@' . strtoupper($email_segment) . implode($rand_arr);
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'userTag' => $userTag,
             'background_color' => implode($color)
         ];
     }
@@ -43,7 +50,7 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
     }

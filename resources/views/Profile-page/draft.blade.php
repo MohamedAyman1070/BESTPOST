@@ -1,8 +1,5 @@
-@extends('layouts.master')
-
-
 @section('content')
-    <div class="bg-custom-black2   h-full   ">
+    <div class="bg-[#111315]   h-full   ">
         <div class="w-full h-fit sm:h-full flex relative">
 
 
@@ -12,13 +9,13 @@
                     <div
                         class="flex w-full justify-center sm:justify-start  p-2 gap-2 border-b-2 border-custom-black1 text-white">
                         <div class="p-2 hover:text-blue-500 transition rounded  bg-custom-black2">
-                            <a href="/profile/posts">Latest</a>
+                            <a href="/profile/draft">Latest</a>
                         </div>
                         <div class="p-2 hover:text-blue-500 transition rounded  bg-custom-black2">
-                            <a href="/profile/posts-oldest">Oldest</a>
+                            <a href="/profile/draft-oldest">Oldest</a>
                         </div>
                         <div class="p-2 hover:text-blue-500 transition rounded  bg-custom-black2">
-                            <a href="/profile/posts-popular">Popular</a>
+                            <a href="/profile/draft-popular">Popular</a>
                         </div>
                     </div>
 

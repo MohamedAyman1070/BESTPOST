@@ -1,4 +1,4 @@
-<div class="rounded bg-[#111315] grid grid-cols-2 gap-2 sm:gap-0 sm:grid-cols-3   p-2">
+<div class="rounded bg-custom-black2  grid grid-cols-2 gap-2 sm:gap-0 sm:grid-cols-3   p-2">
 
     <div class="flex gap-2  ">
         <div class="bg-blue-400 p-2 rounded">
@@ -27,7 +27,7 @@
     </div>
 
 
-    <div class=" inline-flex items-center justify-center gap-2 text-white  ">
+    <div class=" inline-flex items-center justify-end sm:justify-center gap-2 text-white  ">
         <p></p>
         <div class="flex gap-2 h-fit items-center ">
             <button class="h-5  w-5 rounded  " style="background-color: red" wire:click="red"></button>

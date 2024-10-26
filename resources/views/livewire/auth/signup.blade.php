@@ -52,7 +52,7 @@
     @enderror
 
 
-    <button class="p-2 w-full  text-white rounded bg-[#007dfa] text-xl" wire:click.prevent="register" type="submit"
+    <button class="p-2 w-full  text-white rounded bg-custom-black2  text-xl" wire:click.prevent="register" type="submit"
         wire:loading.remove>Sign up</button>
 
     @include('components.spinner-btn', ['target' => 'register', 'width' => 'w-full'])

@@ -1,11 +1,10 @@
 <div>
-    <div class="max-w-xs {{ $color }} w-96  text-sm text-white rounded-md shadow-lg  mb-3 ml-3 ml-3"
-        role="alert">
+    <div class="max-w-xs {{ $color }} w-96  text-sm text-white rounded-md shadow-lg  mb-3 ml-3" role="alert">
         <div class="flex p-4">
             {{ $text }}
 
             <div class="ml-auto">
-                <button wire:click.prevent="{{ $wire ?? '' }}" 
+                <button wire:click.prevent="{{ $wire ?? '' }}"
                     class="inline-flex flex-shrink-0 justify-center items-center h-4 w-4 rounded-md text-white/[.5] hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-white transition-all text-sm dark:focus:ring-offset-white dark:focus:ring-white">
                     <span class="sr-only">Close</span>
                     <svg class="w-3.5 h-3.5" width="16" height="16" viewBox="0 0 16 16" fill="none"

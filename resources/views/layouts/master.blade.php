@@ -14,11 +14,14 @@
 
 <body class="bg-custom-black2 m-0 p-0  ">
     {{-- <div class="  flex flex-col h-full w-full "> --}}
-    @include('components.topbar')
+    {{-- @include('components.topbar') --}}
+    <x-topbar />
     <livewire:err-toast />
     <div class="pt-20 ">
         @yield('content')
     </div>
+
+    {{-- <p class="text-red-500">{{ $ch }}</p> --}}
     {{-- </div> --}}
     @livewireScripts
 </body>

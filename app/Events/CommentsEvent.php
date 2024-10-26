@@ -18,7 +18,7 @@ class CommentsEvent implements ShouldBroadcastNow
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(public $post_id, public $parent_id = null, public $deleted_comment = null)
     {
         //
     }

@@ -83,7 +83,7 @@ class Create extends Component
     public function post()
     {
         if (count($this->elements) > 0) {
-            // $this->validate(['elements' => 'required']);
+            $this->validate(['elements' => 'required']);
             $post = Post::create([
                 'body' => implode("\n", $this->elements),
                 'user_id' => Auth::user()->id,

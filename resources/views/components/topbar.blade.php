@@ -1,4 +1,4 @@
-<div class="p-[3px] bg-[#1a1d1f] text-4xl text-white flex justify-between flex-wrap  fixed z-50  w-full ">
+<div class="p-[3px] bg-custom-black1 text-4xl text-white flex justify-between flex-wrap  fixed z-50  w-full ">
     <div class="flex items-center gap-4  ">
 
         <span class="w-14 h-14 border-r-2 border-white ">
