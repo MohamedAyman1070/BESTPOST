@@ -26,10 +26,11 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
+        // beaware that number of posts must be equalt ot number of comments or it will lead to unexpected behaviour
         Post::factory(30)->create();
 
-        Comment::factory(80)->create();
+        Comment::factory(30)->create();
 
-        React::factory(300)->create();
+        React::factory(50)->create();
     }
 }

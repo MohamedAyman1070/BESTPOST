@@ -17,7 +17,7 @@
             <div x-show="open" x-transition:enter="transition ease-out duration-200"
                 x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
                 x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 scale-100"
-                x-transition:leave-end="opacity-0 scale-90" class=" absolute right-0 top-6 w-60 ">
+                x-transition:leave-end="opacity-0 scale-90" class=" absolute right-0 top-12  w-60 ">
 
                 <div class="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 mt-0 sm:-mt-2">
 

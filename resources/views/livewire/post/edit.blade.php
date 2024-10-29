@@ -1,11 +1,11 @@
-<div class="w-3/5 p-2  h-full m-auto">
-    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading >
+<div class=" w-full sm:w-3/5 p-2  h-full m-auto">
+    <div class="text-xl text-blue-500 font-bold text-center p-2 animate-pulse  " wire:loading>
         Loading...
     </div>
     <div class="bg-green rounded bg-custom-black1 p-2">
 
 
-      
+
 
         <div class="flex flex-col gap-2">
             <div class="flex justify-between">
@@ -22,7 +22,7 @@
                     x-data = "{openUp :false , openDown:false  , input:$wire.entangle('input')  ,photo:$wire.entangle('photo')}">
 
 
-                    @include('components.post-logic.edit' ,['posName'=>'openUp' ,'posNumber'=>1])
+                    @include('components.post-logic.edit', ['posName' => 'openUp', 'posNumber' => 1])
 
                     <div class="p-2 mb-2   rounded relative bg-custom-black2" contenteditable="false">
 
@@ -41,10 +41,10 @@
                             <p class="-mt-1"><i class="fa-solid fa-arrow-up"></i></p>
                         </button>
 
-                       @include('components.post-logic.post-structure')
+                        @include('components.post-logic.post-structure')
                     </div>
 
-                    @include('components.post-logic.edit' ,['posName'=>'openDown' ,'posNumber'=>-1])
+                    @include('components.post-logic.edit', ['posName' => 'openDown', 'posNumber' => -1])
 
 
                 </div>

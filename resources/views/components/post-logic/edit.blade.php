@@ -64,7 +64,6 @@
                         pos: {{ $posNumber }}
 
                     };
-                    console.log(info)
                     Livewire.dispatch('info-uploaded', info);
                 } catch (e) {
                     console.log(e)

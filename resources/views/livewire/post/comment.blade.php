@@ -4,10 +4,13 @@
         <div class="flex justify-between w-full ">
 
 
-            <div class="flex gap-2">
-                @include('components.user-avatar', ['user' => $owner, 'size' => 14])
-
-                <div class="text-white">
+            <div class="flex gap-2 flex-wrap">
+                @if ($comment['parent_id'])
+                    @include('components.user-avatar', ['user' => $owner, 'size' => 12, 'h' => 12])
+                @else
+                    @include('components.user-avatar', ['user' => $owner, 'size' => 14])
+                @endif
+                <div class="text-white flex flex-col flex-wrap">
                     <h1 class="text-blue-500"><b>{{ $owner['name'] }}</b></h1>
                     <smal class=" text-sm text-gray-500">{{ $owner['userTag'] }}</small>
                         {{-- todo:Followers --}}
