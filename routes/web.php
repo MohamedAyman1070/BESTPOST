@@ -17,12 +17,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 
-Route::get('/login', function () {
-    return view('Auth.login');
-})->name('login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('Auth.login');
+    })->name('login');
 
-Route::get('/register', function () {
-    return view('Auth.register');
+    Route::get('/register', function () {
+        return view('Auth.register');
+    });
 });
 
 // Route::get('/' , function(){
