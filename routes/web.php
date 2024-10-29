@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/profile/posts-popular', function () {
-        return view('Profile-page.draft', ['posts' => Post::withCount('reacts')->orderBY('reacts_count', 'desc')->where('user_id', Auth::user()->id)->get()]);
+        return view('Profile-page.posts', ['posts' => Post::withCount('reacts')->orderBY('reacts_count', 'desc')->where('user_id', Auth::user()->id)->get()]);
     });
 
     // Route::get('/profile/draft', function () {
