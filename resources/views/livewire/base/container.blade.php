@@ -5,9 +5,11 @@
     </div>
     @if ($postArrayChunks)
         @for ($i = 0; $i < $page_n; $i++)
-            @foreach ($postArrayChunks[$i] as $post)
-                <livewire:post.PostComponent :$post :key="$post['id']">
-            @endforeach
+            @if (array_key_exists($i, $postArrayChunks))
+                @foreach ($postArrayChunks[$i] as $post)
+                    <livewire:post.PostComponent :$post :key="$post['id']">
+                @endforeach
+            @endif
         @endfor
     @else
         <div class="text-xl text-gray-300 h-96 flex justify-center items-center">
