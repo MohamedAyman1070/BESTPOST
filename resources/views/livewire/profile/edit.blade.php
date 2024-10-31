@@ -5,17 +5,17 @@
 
         @if ($img_url)
             <span class="h-fit rounded-full w-fit mt-14">
-                <img class="w-60 h-60 rounded-full" src="{{ $img_url }}" alt="profile">
+                <img class="object-cover w-60 h-60 rounded-full" src="{{ $img_url }}" alt="profile">
             </span>
         @else
             @if ($user_photo)
                 <span class="h-fit rounded-full w-fit mt-14">
-                    <img class="w-60 h-60 rounded-full" src="{{ $user_photo->url }}" alt="profile">
+                    <img class="object-cover w-60 h-60 rounded-full" src="{{ $user_photo->url }}" alt="profile">
                 </span>
             @else
                 <span class="h-fit rounded-full w-fit mt-14"
                     style=" background-color: rgb({{ auth()->user()->background_color }});">
-                    <img class="w-60 h-60 rounded-full"
+                    <img class="object-cover w-60 h-60 rounded-full"
                         src="{{ 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
                         alt="profile">
                 </span>

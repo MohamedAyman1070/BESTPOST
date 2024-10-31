@@ -3,13 +3,13 @@
     <div class="m-auto w-4/5 h-full   flex flex-col items-center justify-start">
         @if ($user->photos)
             <span class="h-fit rounded-full w-fit mt-14">
-                <img class="w-60 h-60 rounded-full"
+                <img class="w-60 h-60 rounded-full object-cover"
                     src="{{ $user->photos->url ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
                     alt="profile">
             </span>
         @else
             <span class="h-fit rounded-full w-fit mt-14" style=" background-color: rgb({{ $background_color }});">
-                <img class="w-60 h-60 rounded-full"
+                <img class="w-60 h-60 rounded-full object-cover"
                     src="{{ $user->photos->url ?? 'https://res.cloudinary.com/drm3bzgpi/image/upload/v1728697471/profile_nm1gkb.png' }}"
                     alt="profile">
             </span>
