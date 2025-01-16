@@ -5,7 +5,7 @@ window.Pusher = Pusher;
 
 window.Echo = new Echo({
     broadcaster: "pusher",
-    key: "eb916311326599c58186",
+    key: import.meta.env.VITE_REVERB_APP_KEY,
     cluster: "eu",
     forceTLS: true,
 });
