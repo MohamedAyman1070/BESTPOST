@@ -51,8 +51,9 @@ class GoogleAuthController extends Controller
             return redirect('/');
         } catch (Exception $e) {
             // dd('ERR : ', $e->getMessage());
-            redirect()->back();
-            Livewire::dispatch('show-toast', err: $e->getMessage());
+            return redirect()->back();
+            Livewire::emit('show-toast', ['err' => $e->getMessage()]);
+            // Livewire::dispatch('show-toast', err: $e->getMessage());
         }
     }
 }
