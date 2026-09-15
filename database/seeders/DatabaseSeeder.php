@@ -29,7 +29,19 @@ class DatabaseSeeder extends Seeder
         // beaware that number of posts must be equalt ot number of comments or it will lead to unexpected behaviour
         Post::factory(30)->create();
 
-        Comment::factory(30)->create();
+       Comment::factory(30)
+    	->create()
+    	->each(function ($comment) {
+        Comment::factory(2)->create([
+            'post_id' => $comment->post_id,
+            'parent_id' => $comment->id,
+       	 ])->each(function ($child) {
+            Comment::factory()->create([
+                'post_id' => $child->post_id,
+                'parent_id' => $child->id,
+           	 ]);
+        	});
+	    });
 
         React::factory(50)->create();
     }
